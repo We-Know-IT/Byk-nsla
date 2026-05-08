@@ -27,6 +27,18 @@ export default function RootLayout({
     <html
       lang={siteConfig.htmlLang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      style={{
+        '--config-bg': siteConfig.theme.colors.background,
+        '--config-surface': siteConfig.theme.colors.surface,
+        '--config-surface-hover': siteConfig.theme.colors.surfaceHover,
+        '--config-border': siteConfig.theme.colors.border,
+        '--config-fg': siteConfig.theme.colors.foreground,
+        '--config-fg-muted': siteConfig.theme.colors.foregroundMuted,
+        '--config-brand': siteConfig.theme.colors.brandPrimary,
+        '--config-brand-fg': siteConfig.theme.colors.brandForeground,
+        '--config-font-sans': siteConfig.theme.fonts.sans,
+        '--config-font-mono': siteConfig.theme.fonts.mono,
+      } as React.CSSProperties}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

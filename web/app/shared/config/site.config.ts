@@ -18,7 +18,7 @@ export const siteConfig = {
      * Shown in the square mark when `markImageSrc` is not set.
      * Use one character for the default layout, or a short abbreviation.
      */
-    markLetter: "F",
+    markLetter: "B",
     /**
      * Optional image for the square mark (path under `public/`).
      * When set, this replaces the letter mark.
@@ -57,6 +57,24 @@ export const siteConfig = {
     /** Fallback logo on frivilligkraft cards when no mission image is available */
     frivilligkraftCardFallbackLogo: "/frivilligkraft-card-logo.svg",
   },
+
+  /** Theme customization */
+  theme: {
+    colors: {
+      background: "#eff4ff", // App background
+      surface: "#f8faff", // Cards, sidebar, topbar
+      surfaceHover: "#e8efff", // Button hovers, menu hover
+      border: "#d4e0ff",
+      foreground: "#1c2e65",  // Main text
+      foregroundMuted: "#4e5f8b",
+      brandPrimary: "#1f3fa6",  // Buttons, links, highlights
+      brandForeground: "#ffffff",  // Text on brand buttons
+    },
+    fonts: {
+      sans: "var(--font-geist-sans), Arial, Helvetica, sans-serif",
+      mono: "var(--font-geist-mono), monospace",
+    }
+  }
 } as const;
 
 export type SiteConfig = typeof siteConfig;

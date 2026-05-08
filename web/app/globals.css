@@ -1,34 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--config-bg, #efefef);
+  --surface: var(--config-surface, #ffffff);
+  --surface-hover: var(--config-surface-hover, #f2f2f2);
+  --border: var(--config-border, #d8d8d8);
+  --foreground: var(--config-fg, #171717);
+  --foreground-muted: var(--config-fg-muted, #7d7d7d);
+  --brand-primary: var(--config-brand, #000000);
+  --brand-foreground: var(--config-brand-fg, #ffffff);
+  --font-sans-custom: var(--config-font-sans, var(--font-geist-sans));
+  --font-mono-custom: var(--config-font-mono, var(--font-geist-mono));
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border-color: var(--border);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-foreground-muted: var(--foreground-muted);
+  --color-brand: var(--brand-primary);
+  --color-brand-foreground: var(--brand-foreground);
+  --font-sans: var(--font-sans-custom);
+  --font-mono: var(--font-mono-custom);
 }
 
 body {
-  background: var(--background);
+  background: var(--surface);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans-custom);
   margin: 0;
 }
 
 .screen {
   min-height: 100vh;
-  background: #efefef;
+  background: var(--background);
 }
 
 .topbar {
@@ -37,8 +44,8 @@ body {
   z-index: 10;
   height: 66px;
   padding: 0 12px;
-  border-bottom: 1px solid #d8d8d8;
-  background: #fff;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,8 +62,8 @@ body {
   width: 26px;
   height: 26px;
   border-radius: 6px;
-  background: #000;
-  color: #fff;
+  background: var(--brand-primary);
+  color: var(--brand-foreground);
   display: grid;
   place-items: center;
   font-size: 12px;
@@ -74,14 +81,14 @@ body {
 .brandText {
   font-size: 18px;
   font-weight: 500;
-  color: #000;
+  color: var(--foreground);
 }
 
 .logoutButton {
   border: none;
   border-radius: 999px;
-  background: #000;
-  color: #fff;
+  background: var(--brand-primary);
+  color: var(--brand-foreground);
   font-size: 11px;
   font-weight: 500;
   line-height: 1;
@@ -98,8 +105,8 @@ body {
   width: 220px;
   min-width: 220px;
   flex: 0 0 220px;
-  border-right: 1px solid #d8d8d8;
-  background: #fff;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
   padding: 8px;
 }
 
@@ -112,13 +119,13 @@ body {
 .menuItem {
   width: 100%;
   border: none;
-  background: #fff;
+  background: var(--surface);
   border-radius: 999px;
   padding: 10px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #111;
+  color: var(--foreground);
   cursor: pointer;
   font-size: 14px;
   line-height: 1.2;
@@ -127,12 +134,12 @@ body {
 }
 
 .menuItem:hover {
-  background: #f2f2f2;
+  background: var(--surface-hover);
 }
 
 .menuItem.isActive {
-  background: #2f3030;
-  color: #fff;
+  background: var(--brand-primary);
+  color: var(--background);
 }
 
 .menuLabel {
@@ -170,24 +177,24 @@ body {
   font-size: 35px;
   line-height: 1;
   font-weight: 600;
-  color: #181818;
+  color: var(--foreground);
   letter-spacing: -0.02em;
 }
 
 .sectionDescription {
   margin: 0;
   font-size: 14px;
-  color: #7d7d7d;
+  color: var(--foreground-muted);
   line-height: 1.2;
 }
 
 .sectionAction {
   width: 24px;
   height: 24px;
-  border: 1px solid #b9b9b9;
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: #fff;
-  color: #4a4a4a;
+  background: var(--surface);
+  color: var(--foreground);
   padding: 0;
   font-size: 14px;
   line-height: 1;
@@ -1139,110 +1146,4 @@ body {
   }
 }
 
-/* Global blue tint theme */
-:root {
-  --blue-surface-soft: #eff4ff;
-  --blue-surface: #f8faff;
-  --blue-surface-strong: #e8efff;
-  --blue-border: #d4e0ff;
-  --blue-border-strong: #bccdf8;
-  --blue-text-soft: #4e5f8b;
-  --blue-accent: #1f3fa6;
-}
-
-.screen {
-  background: linear-gradient(180deg, #f5f8ff 0%, var(--blue-surface-soft) 100%);
-}
-
-.topbar,
-.sidebar,
-.menuItem,
-.spotlightCard,
-.eventCard,
-.eventGridCard,
-.underConstructionCard,
-.frivilligkraftCard,
-.samhallsbyggeCard,
-.mapCanvas,
-.mapFallback {
-  background: var(--blue-surface);
-}
-
-.topbar,
-.sidebar,
-.spotlightCard,
-.eventCard,
-.eventGridCard,
-.underConstructionCard,
-.frivilligkraftCard,
-.samhallsbyggeCard,
-.mapCanvas,
-.mapFallback {
-  border-color: var(--blue-border);
-}
-
-.menuItem {
-  color: #1c2e65;
-}
-
-.menuItem:hover {
-  background: var(--blue-surface-strong);
-}
-
-.menuItem.isActive {
-  background: #dce7ff;
-  color: #1b3380;
-}
-
-.brandMark,
-.logoutButton,
-.eventSearchButton {
-  background: var(--blue-accent);
-}
-
-.brandText {
-  color: #112257;
-}
-
-.sectionDescription,
-.eventGridDate,
-.frivilligkraftCardDate,
-.samhallsbyggeReference,
-.samhallsbyggeCardFooter {
-  color: var(--blue-text-soft);
-}
-
-.sectionAction,
-.monthArrow,
-.monthLabel,
-.frivilligkraftIconButton,
-.frivilligkraftMonthButton,
-.samhallsbyggeIconButton,
-.samhallsbyggeMonthButton {
-  border-color: var(--blue-border-strong);
-  color: #2f4686;
-}
-
-.eventFilterChip,
-.frivilligkraftChip,
-.samhallsbyggeChip,
-.samhallsbyggeStatusChip {
-  border-color: var(--blue-border-strong);
-  background: #e9efff;
-  color: #2f4686;
-}
-
-.eventSearchBar,
-.frivilligkraftCardImage {
-  background: #e7eeff;
-}
-
-.frivilligkraftMetaList span {
-  border-color: var(--blue-border);
-  background: #f1f5ff;
-  color: #334773;
-}
-
-.frivilligkraftLink {
-  color: #1e3f99;
-}
+/* Global blue tint theme has been removed: UI now inherits strictly from root properties above */
