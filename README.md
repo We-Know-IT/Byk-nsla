@@ -97,7 +97,16 @@ Provider switching (events, weather, etc.) is documented in [backend/README.md](
 
 **Useful scripts:** `npm run dev`, `npm run build`, `npm start`, `npm run lint`.
 
-Branding and area copy live in `web/app/shared/config/site.config.ts`. Navigation modules are listed in `web/app/shared/config/modules.ts`.
+## Customization & Theming
+
+The web app is built as a generic functional template that can be easily forked and tailored to specific villages or local areas. 
+
+All primary project updates and customizations should be done directly in **`web/app/shared/config/site.config.ts`**. This configuration file controls:
+- **Theme & Styling**: Application colors (background, surface, border, buttons, text) and default fonts.
+- **Branding & Copy**: Site name, document titles, logos, and default interface text.
+- **Geography Settings**: Target area boundaries, map center coordinates, and filtering keywords.
+
+Navigation modules can be ordered and toggled in `web/app/shared/config/modules.ts`.
 
 ## Production builds
 
