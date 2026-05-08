@@ -1,4 +1,4 @@
-# Lineroligt Backend
+# Bykänsla Backend
 
 Simple TypeScript + Express backend with adapter-based integration boundaries.
 

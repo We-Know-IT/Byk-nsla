@@ -4,14 +4,14 @@ import AppTopbar from "../shared/ui/app-topbar";
 import SidebarNav from "../modules/start/components/sidebar-nav";
 import SamhallsbyggeCard from "./components/samhallsbygge-card";
 import SamhallsbyggeMap from "./components/samhallsbygge-map";
-import { filterLineroSamhallsbyggeItems } from "./linero-filter";
+import { filterAreaSamhallsbyggeItems } from "./area-filter";
 import { getSamhallsbyggeItems } from "./samhallsbygge-api";
 
 const MONTH_LABEL = "Mars";
 
 export default async function SamhallsbyggePage() {
   const { items, error } = await getSamhallsbyggeItems();
-  const lineroItems = filterLineroSamhallsbyggeItems(items);
+  const areaItems = filterAreaSamhallsbyggeItems(items);
 
   return (
     <main className="screen">
@@ -50,7 +50,7 @@ export default async function SamhallsbyggePage() {
           </div>
 
           <div className="samhallsbyggeMapShell">
-            <SamhallsbyggeMap items={lineroItems} />
+            <SamhallsbyggeMap items={areaItems} />
           </div>
 
           {error ? (
@@ -59,15 +59,15 @@ export default async function SamhallsbyggePage() {
             </div>
           ) : null}
 
-          {!error && lineroItems.length === 0 ? (
+          {!error && areaItems.length === 0 ? (
             <div className="underConstructionCard">
-              <p>Inga samhällsbyggnadsärenden hittades för Linero just nu.</p>
+              <p>Inga samhällsbyggnadsärenden hittades för {siteConfig.areaName} just nu.</p>
             </div>
           ) : null}
 
-          {!error && lineroItems.length > 0 ? (
+          {!error && areaItems.length > 0 ? (
             <div className="samhallsbyggeGrid">
-              {lineroItems.map((item) => (
+              {areaItems.map((item) => (
                 <SamhallsbyggeCard key={item.id} item={item} />
               ))}
             </div>

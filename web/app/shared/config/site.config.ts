@@ -4,12 +4,12 @@
  */
 export const siteConfig = {
   /** Shown in the top bar, document title, and other UI */
-  name: "Lineroligt",
+  name: "Bykänsla",
 
   htmlLang: "sv",
 
   metadata: {
-    title: "Lineroligt",
+    title: "Bykänsla",
     description: "Kommunportal — startsida, event och frivilligkraft",
   },
 
@@ -35,6 +35,22 @@ export const siteConfig = {
    * Local area name used in headings (e.g. "Event i …", volontär copy).
    */
   areaName: "Linero",
+
+  /**
+   * Geography configuration for the local area.
+   * Used to filter events and items to this specific area.
+   */
+  geography: {
+    center: [13.1998, 55.6997] as [number, number], // [longitude, latitude]
+    maxDistanceKm: 1.35,
+    bounds: {
+      minLng: 13.165,
+      maxLng: 13.24,
+      minLat: 55.675,
+      maxLat: 55.725,
+    },
+    keywords: ["linero", "linero 2:1", "ostra torn", "östra torn", "my village"],
+  },
 
   /** Static assets under `public/` */
   assets: {

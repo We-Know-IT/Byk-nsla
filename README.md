@@ -45,7 +45,7 @@ Never commit real secrets; keep them in local `.env` files (they are gitignored 
 ## Repository layout
 
 ```text
-Lineroligt/
+Bykänsla/
 ├── backend/          # Express API (adapters, modules, routes)
 ├── web/              # Next.js App Router UI + BFF-style API routes
 ├── temp-docs/        # Scratch / internal docs (optional)

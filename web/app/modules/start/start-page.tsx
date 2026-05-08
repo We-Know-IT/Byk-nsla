@@ -5,7 +5,7 @@ import { getFrivilligkraftTeasers } from "../../frivilligkraft/frivilligkraft-ap
 import { getSamhallsbyggeItems } from "../../samhallsbygge/samhallsbygge-api";
 import FrivilligkraftCard from "../../frivilligkraft/components/frivilligkraft-card";
 import SamhallsbyggeMap from "../../samhallsbygge/components/samhallsbygge-map";
-import { filterLineroSamhallsbyggeItems } from "../../samhallsbygge/linero-filter";
+import { filterAreaSamhallsbyggeItems } from "../../samhallsbygge/area-filter";
 import AppTopbar from "../../shared/ui/app-topbar";
 import EventCard from "./components/event-card";
 import SectionHeader from "./components/section-header";
@@ -51,7 +51,7 @@ export default async function StartPage() {
     { teasers: frivilligkraftTeasers, error: frivilligkraftError },
   ] = await Promise.all([getSamhallsbyggeItems(), getEvents(), getFrivilligkraftTeasers()]);
 
-  const lineroItems = filterLineroSamhallsbyggeItems(samhallsbyggeItems);
+  const areaItems = filterAreaSamhallsbyggeItems(samhallsbyggeItems);
   const eventCards =
     !eventError && events.length > 0
       ? events.slice(0, 6).map((event) => ({
@@ -88,7 +88,7 @@ export default async function StartPage() {
             <SectionHeader title="Hjälp någon med Frivilligkraft" withAction />
             <p className="sectionDescription">{sectionDescription}</p>
             <div className="samhallsbyggeMapShell">
-              <SamhallsbyggeMap items={lineroItems} />
+              <SamhallsbyggeMap items={areaItems} />
             </div>
             {samhallsbyggeError ? (
               <div className="underConstructionCard" role="status">

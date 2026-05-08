@@ -1,14 +1,5 @@
 import type { SamhallsbyggeItem } from "./samhallsbygge-api";
-
-const LINERO_CENTER: [number, number] = [13.1998, 55.6997];
-const LINERO_MAX_DISTANCE_KM = 1.35;
-const LINERO_BOUNDS = {
-  minLng: 13.165,
-  maxLng: 13.24,
-  minLat: 55.675,
-  maxLat: 55.725,
-};
-const LINERO_KEYWORDS = ["linero", "linero 2:1", "ostra torn", "östra torn"];
+import { siteConfig } from "../shared/config/site.config";
 
 const toRad = (value: number): number => (value * Math.PI) / 180;
 
@@ -55,14 +46,14 @@ const getGeometryCenter = (
   return [sums[0] / coords.length, sums[1] / coords.length];
 };
 
-export function filterLineroSamhallsbyggeItems(items: SamhallsbyggeItem[]): SamhallsbyggeItem[] {
-  const matchesLineroText = (item: SamhallsbyggeItem): boolean => {
+export function filterAreaSamhallsbyggeItems(items: SamhallsbyggeItem[]): SamhallsbyggeItem[] {
+  const matchesAreaText = (item: SamhallsbyggeItem): boolean => {
     const searchable = [item.title, item.subtitle, item.reference].filter(Boolean).join(" ").toLowerCase();
-    return LINERO_KEYWORDS.some((keyword) => searchable.includes(keyword));
+    return siteConfig.geography.keywords.some((keyword) => searchable.includes(keyword));
   };
 
   return items.filter((item) => {
-    const textMatch = matchesLineroText(item);
+    const textMatch = matchesAreaText(item);
     if (textMatch) {
       return true;
     }
@@ -77,13 +68,13 @@ export function filterLineroSamhallsbyggeItems(items: SamhallsbyggeItem[]): Samh
     }
 
     const [lng, lat] = center;
-    const isInsideLineroBounds =
-      lng >= LINERO_BOUNDS.minLng &&
-      lng <= LINERO_BOUNDS.maxLng &&
-      lat >= LINERO_BOUNDS.minLat &&
-      lat <= LINERO_BOUNDS.maxLat;
+    const isInsideAreaBounds =
+      lng >= siteConfig.geography.bounds.minLng &&
+      lng <= siteConfig.geography.bounds.maxLng &&
+      lat >= siteConfig.geography.bounds.minLat &&
+      lat <= siteConfig.geography.bounds.maxLat;
 
-    const isNearLineroCenter = distanceInKm(center, LINERO_CENTER) <= LINERO_MAX_DISTANCE_KM;
-    return isInsideLineroBounds && isNearLineroCenter;
+    const isNearAreaCenter = distanceInKm(center, siteConfig.geography.center) <= siteConfig.geography.maxDistanceKm;
+    return isInsideAreaBounds && isNearAreaCenter;
   });
 }
