@@ -1,0 +1,1248 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+.screen {
+  min-height: 100vh;
+  background: #efefef;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 66px;
+  padding: 0 12px;
+  border-bottom: 1px solid #d8d8d8;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brandMark {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.brandMark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brandText {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+}
+
+.logoutButton {
+  border: none;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+.appBody {
+  display: flex;
+  min-height: calc(100vh - 66px);
+}
+
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  flex: 0 0 220px;
+  border-right: 1px solid #d8d8d8;
+  background: #fff;
+  padding: 8px;
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menuItem {
+  width: 100%;
+  border: none;
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #111;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.2;
+  min-height: 38px;
+  text-decoration: none;
+}
+
+.menuItem:hover {
+  background: #f2f2f2;
+}
+
+.menuItem.isActive {
+  background: #2f3030;
+  color: #fff;
+}
+
+.menuLabel {
+  text-align: left;
+}
+
+.menuArrow {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.contentArea {
+  flex: 1;
+  padding: 16px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.pageSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 35px;
+  line-height: 1;
+  font-weight: 600;
+  color: #181818;
+  letter-spacing: -0.02em;
+}
+
+.sectionDescription {
+  margin: 0;
+  font-size: 14px;
+  color: #7d7d7d;
+  line-height: 1.2;
+}
+
+.sectionAction {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #b9b9b9;
+  border-radius: 999px;
+  background: #fff;
+  color: #4a4a4a;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.spotlightRow {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.spotlightCard {
+  border-radius: 10px;
+  border: 1px solid #d8d8d8;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.spotlightIcon {
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.spotlightIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.spotlightSymbol {
+  position: relative;
+  width: 118px;
+  height: 86px;
+}
+
+.spotlightSunCenter {
+  position: absolute;
+  top: 7px;
+  left: 52px;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #111;
+  border-radius: 999px;
+}
+
+.spotlightRay {
+  position: absolute;
+  width: 3px;
+  height: 10px;
+  border-radius: 999px;
+  background: #111;
+}
+
+.spotlightRayTop {
+  top: 0;
+  left: 60px;
+}
+
+.spotlightRayTopLeft {
+  top: 8px;
+  left: 34px;
+  transform: rotate(-48deg);
+}
+
+.spotlightRayTopRight {
+  top: 8px;
+  left: 84px;
+  transform: rotate(48deg);
+}
+
+.spotlightCloud {
+  position: absolute;
+  left: 6px;
+  bottom: 0;
+  width: 102px;
+  height: 44px;
+  border: 4px solid #111;
+  border-radius: 28px;
+  background: #fff;
+}
+
+.spotlightBody h2 {
+  margin: 0 0 2px;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 500;
+  color: #181818;
+}
+
+.spotlightBody p {
+  margin: 0 0 3px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #202020;
+}
+
+.spotlightBody .inlineAction {
+  font-size: 13px;
+  gap: 4px;
+}
+
+.inlineAction {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 24px;
+  color: #111;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.cardRow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(188px, 188px);
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.eventCard {
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid #d7d7d7;
+  background: #fff;
+  min-height: 302px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+}
+
+.eventImage {
+  height: 158px;
+  background: #ede3c8;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #ececec;
+}
+
+.saveButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  width: auto;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  font-size: 18px;
+  line-height: 1;
+  color: #7a7468;
+  cursor: pointer;
+}
+
+.eventBody {
+  padding: 11px 12px 12px;
+}
+
+.eventBody h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #171717;
+}
+
+.eventBody p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #252525;
+}
+
+.eventBody .inlineAction {
+  font-size: 13px;
+  gap: 4px;
+}
+
+.mapShell {
+  min-height: 340px;
+}
+
+.mapCanvas,
+.mapFallback {
+  min-height: 380px;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.mapFallback {
+  display: grid;
+  place-items: center;
+  color: #555;
+  font-size: 14px;
+  padding: 18px;
+  text-align: center;
+}
+
+.eventPage {
+  gap: 10px;
+}
+
+.eventPageTitle {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #181818;
+}
+
+.eventToolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.eventToolbarTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eventSearchBar {
+  height: 34px;
+  flex: 1;
+  border-radius: 999px;
+  background: #d3d3d3;
+  color: #161616;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 18px;
+}
+
+.eventSearchButton {
+  border: none;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  padding: 8px 14px;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.eventMonthControls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.monthArrow,
+.monthLabel {
+  border: 1px solid #b9b9b9;
+  border-radius: 999px;
+  background: #fff;
+  color: #202020;
+  height: 30px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.monthArrow {
+  width: 30px;
+  padding: 0;
+}
+
+.eventFilters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eventFilterChip {
+  border: 1px solid #c4c4c4;
+  border-radius: 999px;
+  background: #ececec;
+  color: #202020;
+  height: 28px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.eventGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.eventGridCard {
+  position: relative;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 7%);
+}
+
+.eventGridImage {
+  position: relative;
+  height: 156px;
+  overflow: hidden;
+  background: #ede3c8;
+  border-bottom: 1px solid #ececec;
+}
+
+.eventGridImagePhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.eventGridSave {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  border: none;
+  background: transparent;
+  color: #7a7468;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.eventGridBody {
+  padding: 10px 10px 8px;
+}
+
+.eventGridBody h3 {
+  margin: 0 0 5px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #171717;
+}
+
+.eventGridDate {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: #6f6f6f;
+}
+
+.eventGridBody p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #1f1f1f;
+}
+
+.eventGridAction {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 13px;
+  color: #111;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.underConstructionCard {
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 7%);
+  padding: 22px;
+  max-width: 520px;
+}
+
+.underConstructionCard h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #181818;
+}
+
+.underConstructionCard p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #545454;
+}
+
+.frivilligkraftPage {
+  gap: 10px;
+}
+
+.frivilligkraftHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.frivilligkraftTopTools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.frivilligkraftIconButton,
+.frivilligkraftMonthButton {
+  border: 1px solid #b9b9b9;
+  border-radius: 999px;
+  background: #fff;
+  color: #202020;
+  height: 30px;
+  font-size: 13px;
+}
+
+.frivilligkraftIconButton {
+  width: 30px;
+  padding: 0;
+}
+
+.frivilligkraftMonthButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.frivilligkraftToolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.frivilligkraftChip {
+  border: 1px solid #c4c4c4;
+  border-radius: 999px;
+  background: #ececec;
+  color: #202020;
+  height: 28px;
+  padding: 0 12px;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.frivilligkraftGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.frivilligkraftCard {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border: 1px solid #e3e3e3;
+  border-radius: 18px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 7%);
+  min-height: 148px;
+}
+
+.frivilligkraftCardImage {
+  position: relative;
+  flex: 0 0 40%;
+  max-width: 40%;
+  min-height: 140px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f3f3;
+  border-right: 1px solid #ececec;
+  overflow: hidden;
+}
+
+/* Logos: show full graphic with padding; avoid cover-crop */
+.frivilligkraftCardPhoto {
+  position: absolute;
+  inset: 12px;
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  object-fit: contain;
+  object-position: center;
+}
+
+.frivilligkraftCardLogo {
+  width: min(56px, 70%);
+  height: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+.frivilligkraftCardBody {
+  flex: 1 1 60%;
+  min-width: 0;
+  padding: 14px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.frivilligkraftCardBody h2 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #171717;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.frivilligkraftCardDate {
+  margin: 4px 0 6px;
+  font-size: 12px;
+  color: #6f6f6f;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.frivilligkraftCardDescription {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #1f1f1f;
+  overflow: hidden;
+  max-height: calc(1.35em * 4);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.frivilligkraftCardDescription p,
+.frivilligkraftCardDescription li {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #1f1f1f;
+}
+
+.frivilligkraftCardDescription ul,
+.frivilligkraftCardDescription ol {
+  margin: 0;
+  padding-left: 1.15em;
+}
+
+.frivilligkraftCardDescription li + li {
+  margin-top: 0.15em;
+}
+
+.frivilligkraftCardFooter {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.frivilligkraftMetaList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.frivilligkraftMetaList span {
+  border: 1px solid #d8d8d8;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #444;
+  background: #f6f6f6;
+  max-width: 100%;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.frivilligkraftLink {
+  font-size: 13px;
+  color: #111;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.frivilligkraftLink:hover {
+  text-decoration: underline;
+}
+
+.samhallsbyggePage {
+  gap: 10px;
+}
+
+.samhallsbyggeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.samhallsbyggeTopTools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.samhallsbyggeIconButton,
+.samhallsbyggeMonthButton {
+  border: 1px solid #b9b9b9;
+  border-radius: 999px;
+  background: #fff;
+  color: #202020;
+  height: 30px;
+  font-size: 13px;
+}
+
+.samhallsbyggeIconButton {
+  width: 30px;
+  padding: 0;
+}
+
+.samhallsbyggeMonthButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.samhallsbyggeToolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.samhallsbyggeChip {
+  border: 1px solid #c4c4c4;
+  border-radius: 999px;
+  background: #ececec;
+  color: #202020;
+  height: 28px;
+  padding: 0 12px;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.samhallsbyggeMapShell {
+  height: 620px;
+  min-height: 620px;
+}
+
+.samhallsbyggeMapCanvas,
+.samhallsbyggeMapFallback {
+  height: 100%;
+  min-height: 620px;
+}
+
+.samhallsbyggeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.samhallsbyggeCard {
+  border: 1px solid #d8deeb;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgb(17 24 39 / 8%);
+  padding: 14px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 168px;
+}
+
+.samhallsbyggeCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.samhallsbyggeStatusChip {
+  border: 1px solid #1f2937;
+  border-radius: 999px;
+  padding: 4px 11px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #fff;
+  color: #111827;
+  line-height: 1.1;
+}
+
+.samhallsbyggeReference {
+  font-size: 12px;
+  color: #7a8599;
+}
+
+.samhallsbyggeCardBody h2 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #171717;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.samhallsbyggeCardBody p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #252f3f;
+  text-transform: uppercase;
+}
+
+.samhallsbyggeCardFooter {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: #6f6f6f;
+}
+
+.samhallsbyggeCategory {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #606b80;
+}
+
+.samhallsbyggeCategory::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  background: #9ca3af;
+  display: inline-block;
+}
+
+.samhallsbyggeDate {
+  color: #606b80;
+}
+
+.samhallsbyggeMarker {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 25%);
+}
+
+.samhallsbyggeTooltip {
+  min-width: 180px;
+  max-width: 260px;
+  color: #111;
+}
+
+.mapboxgl-popup-content .samhallsbyggeTooltip {
+  color: #111;
+}
+
+.mapboxgl-popup-content {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 22px rgb(0 0 0 / 20%);
+  border: 1px solid #d8d8d8;
+  padding: 10px 12px;
+}
+
+.mapboxgl-popup-close-button {
+  color: #444;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0 6px;
+}
+
+.samhallsbyggeTooltipCategory {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: #374151;
+}
+
+.samhallsbyggeTooltipTitle {
+  margin: 0 0 6px;
+  font-size: 14px;
+  line-height: 1.25;
+  color: #111827;
+}
+
+.samhallsbyggeTooltipMeta {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #1f2937;
+}
+
+.samhallsbyggeTooltipMeta + .samhallsbyggeTooltipMeta {
+  margin-top: 2px;
+}
+
+@media (max-width: 1300px) {
+  .sectionTitle {
+    font-size: 28px;
+  }
+
+  .spotlightBody h2 {
+    font-size: 28px;
+  }
+
+  .spotlightBody p,
+  .inlineAction,
+  .eventBody h3 {
+    font-size: 20px;
+  }
+
+  .eventBody p {
+    font-size: 16px;
+  }
+
+  .eventGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .frivilligkraftGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .samhallsbyggeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .appBody {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 8px 10px;
+  }
+
+  .menuList {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .menuItem {
+    min-width: 140px;
+  }
+
+  .spotlightRow {
+    grid-template-columns: 1fr;
+  }
+
+  .eventCard {
+    min-height: 258px;
+  }
+
+  .eventToolbarTop {
+    flex-wrap: wrap;
+  }
+
+  .eventMonthControls {
+    margin-left: 0;
+  }
+
+  .eventGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .frivilligkraftGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .frivilligkraftCard {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .frivilligkraftCardImage {
+    flex: none;
+    max-width: none;
+    width: 100%;
+    min-height: 120px;
+    border-right: none;
+    border-bottom: 1px solid #ececec;
+  }
+
+  .frivilligkraftHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .frivilligkraftToolbar {
+    flex-wrap: wrap;
+  }
+
+  .samhallsbyggeHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .samhallsbyggeToolbar {
+    flex-wrap: wrap;
+  }
+
+  .samhallsbyggeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .samhallsbyggeMapShell,
+  .samhallsbyggeMapCanvas,
+  .samhallsbyggeMapFallback {
+    height: 420px;
+    min-height: 420px;
+  }
+}
+
+/* Global blue tint theme */
+:root {
+  --blue-surface-soft: #eff4ff;
+  --blue-surface: #f8faff;
+  --blue-surface-strong: #e8efff;
+  --blue-border: #d4e0ff;
+  --blue-border-strong: #bccdf8;
+  --blue-text-soft: #4e5f8b;
+  --blue-accent: #1f3fa6;
+}
+
+.screen {
+  background: linear-gradient(180deg, #f5f8ff 0%, var(--blue-surface-soft) 100%);
+}
+
+.topbar,
+.sidebar,
+.menuItem,
+.spotlightCard,
+.eventCard,
+.eventGridCard,
+.underConstructionCard,
+.frivilligkraftCard,
+.samhallsbyggeCard,
+.mapCanvas,
+.mapFallback {
+  background: var(--blue-surface);
+}
+
+.topbar,
+.sidebar,
+.spotlightCard,
+.eventCard,
+.eventGridCard,
+.underConstructionCard,
+.frivilligkraftCard,
+.samhallsbyggeCard,
+.mapCanvas,
+.mapFallback {
+  border-color: var(--blue-border);
+}
+
+.menuItem {
+  color: #1c2e65;
+}
+
+.menuItem:hover {
+  background: var(--blue-surface-strong);
+}
+
+.menuItem.isActive {
+  background: #dce7ff;
+  color: #1b3380;
+}
+
+.brandMark,
+.logoutButton,
+.eventSearchButton {
+  background: var(--blue-accent);
+}
+
+.brandText {
+  color: #112257;
+}
+
+.sectionDescription,
+.eventGridDate,
+.frivilligkraftCardDate,
+.samhallsbyggeReference,
+.samhallsbyggeCardFooter {
+  color: var(--blue-text-soft);
+}
+
+.sectionAction,
+.monthArrow,
+.monthLabel,
+.frivilligkraftIconButton,
+.frivilligkraftMonthButton,
+.samhallsbyggeIconButton,
+.samhallsbyggeMonthButton {
+  border-color: var(--blue-border-strong);
+  color: #2f4686;
+}
+
+.eventFilterChip,
+.frivilligkraftChip,
+.samhallsbyggeChip,
+.samhallsbyggeStatusChip {
+  border-color: var(--blue-border-strong);
+  background: #e9efff;
+  color: #2f4686;
+}
+
+.eventSearchBar,
+.frivilligkraftCardImage {
+  background: #e7eeff;
+}
+
+.frivilligkraftMetaList span {
+  border-color: var(--blue-border);
+  background: #f1f5ff;
+  color: #334773;
+}
+
+.frivilligkraftLink {
+  color: #1e3f99;
+}
