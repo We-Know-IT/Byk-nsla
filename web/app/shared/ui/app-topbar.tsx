@@ -1,4 +1,5 @@
 import { siteConfig } from "../config/site.config";
+import { Button } from "./button";
 
 export default function AppTopbar() {
   const { brand, name, labels } = siteConfig;
@@ -16,9 +17,8 @@ export default function AppTopbar() {
         </div>
         <span className="brandText">{name}</span>
       </div>
-      <button className="logoutButton" type="button">
-        {labels.logout}
-      </button>
+        <Button variant="round" size="sm">{labels.logout}</Button>
+
     </header>
   );
 }

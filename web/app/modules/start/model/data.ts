@@ -3,6 +3,7 @@ export type SpotlightCardData = {
   title: string;
   text: string;
   cta: string;
+  imageSrc?: string;
 };
 
 export type EventCardData = {

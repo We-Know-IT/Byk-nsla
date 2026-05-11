@@ -3,6 +3,9 @@ import FrivilligkraftCardMedia from "./frivilligkraft-card-media";
 import { sanitizeHtml } from "../sanitize-html";
 import { truncateLabel } from "../truncate-label";
 
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "../../shared/ui/card";
+import { Button } from "../../shared/ui/button";
+
 const META_CHIP_MAX = 72;
 
 type FrivilligkraftCardProps = {
@@ -18,42 +21,42 @@ export default function FrivilligkraftCard({ teaser, dateLabel }: Frivilligkraft
   const freqChip = teaser.frequency ? truncateLabel(teaser.frequency, META_CHIP_MAX) : null;
 
   return (
-    <article className="frivilligkraftCard">
+    <Card className="group flex flex-row overflow-hidden">
       <FrivilligkraftCardMedia imageUrl={teaser.imageUrl ?? null} />
 
-      <div className="frivilligkraftCardBody">
-        <h2 title={teaser.title}>{teaser.title}</h2>
+      <div className="flex w-3/5 flex-col">
+        <CardHeader>
+          {dateLabel && (
+            <CardDescription>
+              {dateLabel}
+            </CardDescription>
+          )}
+          <CardTitle title={teaser.title}>{teaser.title}</CardTitle>
+        </CardHeader>
 
-        {dateLabel ? (
-          <p className="frivilligkraftCardDate">
-            <span aria-hidden="true">🗓</span>
-            {dateLabel}
-          </p>
-        ) : null}
+        <CardContent>
+          <div
+            className="text-foreground-muted line-clamp-3"
+            dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+          />
+        </CardContent>
 
-        <div
-          className="frivilligkraftCardDescription"
-          dangerouslySetInnerHTML={{ __html: descriptionHtml }}
-        />
-
-        <div className="frivilligkraftCardFooter">
-          <div className="frivilligkraftMetaList">
-            {orgChip ? (
-              <span title={teaser.organization ?? undefined}>{orgChip}</span>
-            ) : null}
-            {locChip ? <span title={teaser.location ?? undefined}>{locChip}</span> : null}
-            {freqChip ? (
-              <span title={teaser.frequency ?? undefined}>{freqChip}</span>
-            ) : null}
+        <CardFooter className="justify-between mt-auto">
+          <div className="flex gap-2 text-xs font-medium text-brand">
+            {orgChip && <span title={teaser.organization ?? undefined}>{orgChip}</span>}
+            {locChip && <span className="opacity-50">•</span>}
+            {locChip && <span title={teaser.location ?? undefined}>{locChip}</span>}
           </div>
 
-          {teaser.missionUrl ? (
-            <a className="frivilligkraftLink" href={teaser.missionUrl} target="_blank" rel="noreferrer">
-              Se uppdrag <span aria-hidden="true">→</span>
-            </a>
-          ) : null}
-        </div>
+          {teaser.missionUrl && (
+            <Button variant="ghost" size="sm">
+              <a href={teaser.missionUrl} target="_blank" rel="noreferrer">
+                Se uppdrag <span aria-hidden="true" className="ml-1">→</span>
+              </a>
+            </Button>
+          )}
+        </CardFooter>
       </div>
-    </article>
+    </Card>
   );
 }

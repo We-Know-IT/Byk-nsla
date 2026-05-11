@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { siteConfig } from "../../shared/config/site.config";
+import { CardMedia } from "../../shared/ui/card";
 
 type FrivilligkraftCardMediaProps = {
   imageUrl: string | null;
@@ -13,23 +14,28 @@ export default function FrivilligkraftCardMedia({ imageUrl }: FrivilligkraftCard
   const showPhoto = Boolean(imageUrl) && !broken;
 
   return (
-    <div className="frivilligkraftCardImage" aria-hidden="true">
-      {showPhoto ? (
+    <>
+      <CardMedia
+        src={showPhoto ? imageUrl : null}
+        className="w-2/5 border-r border-border"
+        fallback={
+          <img
+            src={siteConfig.assets.frivilligkraftCardFallbackLogo}
+            alt=""
+            width={72}
+            height={72}
+            className="opacity-50"
+          />
+        }
+      />
+      {showPhoto && (
         <img
           src={imageUrl!}
           alt=""
-          className="frivilligkraftCardPhoto"
+          className="hidden"
           onError={() => setBroken(true)}
         />
-      ) : (
-        <img
-          className="frivilligkraftCardLogo"
-          src={siteConfig.assets.frivilligkraftCardFallbackLogo}
-          alt=""
-          width={72}
-          height={72}
-        />
       )}
-    </div>
+    </>
   );
 }

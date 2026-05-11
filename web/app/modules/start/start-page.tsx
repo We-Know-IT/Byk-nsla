@@ -7,7 +7,7 @@ import FrivilligkraftCard from "../../frivilligkraft/components/frivilligkraft-c
 import SamhallsbyggeMap from "../../samhallsbygge/components/samhallsbygge-map";
 import { filterAreaSamhallsbyggeItems } from "../../samhallsbygge/area-filter";
 import AppTopbar from "../../shared/ui/app-topbar";
-import EventCard from "./components/event-card";
+import EventCard from "../event/components/event-card";
 import SectionHeader from "./components/section-header";
 import SidebarNav from "./components/sidebar-nav";
 import SpotlightCard from "./components/spotlight-card";

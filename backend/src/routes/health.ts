@@ -7,7 +7,7 @@ export const healthRouter = Router();
 healthRouter.get("/", (_req, res) => {
   return sendSuccess(res, {
     status: "ok",
-    service: "lineroligt-backend",
+    service: "bykansla-backend",
     environment: env.nodeEnv,
   });
 });
