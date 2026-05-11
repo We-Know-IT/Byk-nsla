@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: var(--config-bg, #efefef);
-  --surface: var(--config-surface, #ffffff);
-  --surface-hover: var(--config-surface-hover, #f2f2f2);
-  --border: var(--config-border, #d8d8d8);
-  --foreground: var(--config-fg, #171717);
-  --foreground-muted: var(--config-fg-muted, #7d7d7d);
-  --brand-primary: var(--config-brand, #000000);
-  --brand-foreground: var(--config-brand-fg, #ffffff);
-  --font-sans-custom: var(--config-font-sans, var(--font-geist-sans));
-  --font-mono-custom: var(--config-font-mono, var(--font-geist-mono));
+  --background: #eff4ff; /* App background */
+  --surface: #f8faff; /* Cards, sidebar, topbar */
+  --surface-hover: #e8efff; /* Button hovers, menu hover */
+  --border: #d4e0ff;
+  --foreground: #1c2e65; /* Main text */
+  --foreground-muted: #4e5f8b;
+  --brand-primary: #1f3fa6; /* Buttons, links, highlights */
+  --brand-foreground: #ffffff; /* Text on brand buttons */
+  
+  --font-sans-custom: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono-custom: var(--font-geist-mono), monospace;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
-  --color-border-color: var(--border);
+  --color-border: var(--border);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
   --color-brand: var(--brand-primary);
