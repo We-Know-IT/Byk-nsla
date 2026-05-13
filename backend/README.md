@@ -20,35 +20,22 @@ Server default: `http://localhost:4000`
 
 ## Adapter structure
 
-- `src/adapters/contracts/` - interfaces (ports) consumed by modules
-- `src/adapters/providers/` - concrete providers (mock first)
-- `src/adapters/registry/` - provider selection from environment
+- `src/adapters/contracts/` — interfaces (ports) consumed by modules
+- `src/adapters/providers/` — concrete providers (mock implementations ship with the template)
+- `src/adapters/registry/` — wires providers for use by routes/modules
 
 Modules only depend on contracts, not provider internals.
 
-## Provider switching
+## Providers (shipped defaults)
 
-Current providers:
+- **Events:** mock data via `MockEventsAdapter` (`src/adapters/providers/mock-events-adapter.ts`). This demonstrates the pattern without calling external APIs.
+- **Weather:** `WEATHER_PROVIDER=mock` (default) — `MockWeatherAdapter`.
 
-- **Events:** `EVENTS_PROVIDER=mock` (default) or `EVENTS_PROVIDER=ticketmaster`
-- **Weather:** `WEATHER_PROVIDER=mock`
+## Adding a real provider or new integration
 
-### Ticketmaster events (testdata)
+1. Add a class in `src/adapters/providers/` implementing the relevant contract in `src/adapters/contracts/`.
+2. Extend `src/config/env.ts` if you need new environment variables or provider names.
+3. Update the matching file under `src/adapters/registry/` to construct your provider (e.g. switch on `env` or always return your adapter while developing).
+4. Route handlers in `src/routes/` usually stay unchanged if the service API is stable.
 
-Set `EVENTS_PROVIDER=ticketmaster` and provide an API key:
-
-- `TICKETMASTER_API_KEY` or `TICKETMASTER_CONSUMER_KEY` (either name works)
-
-Optional discovery filters (defaults match the bykansla-api-tester playground):
-
-- `TICKETMASTER_CITY` (default `Lund`)
-- `TICKETMASTER_COUNTRY_CODE` (default `SE`)
-- `TICKETMASTER_SIZE` — page size (default `20`)
-- `TICKETMASTER_SORT` (default `date,asc`)
-
-To add another real provider:
-
-1. Add a class in `src/adapters/providers/` implementing the contract.
-2. Extend `src/config/env.ts` provider parser if needed.
-3. Update the corresponding registry switch in `src/adapters/registry/`.
-4. No route-handler changes should be needed.
+No secrets are required for the default mock setup.

@@ -17,7 +17,7 @@ export type EventCardData = {
 };
 
 export const sectionDescription =
-  "Visa alla pågående projekt och planerade åtgärder på kartan";
+  "Kort introduktionstext under varje sektion — anpassa i model/data.ts.";
 
 export const spotlightCards: SpotlightCardData[] = Array.from(
   { length: 3 },
@@ -71,10 +71,3 @@ export const cityCards: EventCardData[] = [
     cta: "Knapp",
   },
 ];
-
-export const helpCards: EventCardData[] = Array.from({ length: 6 }, (_, index) => ({
-  id: `help-${index + 1}`,
-  title: "Rubrik",
-  text: "In nulla in fames ut velit ridiculus vulputate.",
-  cta: "Knapp",
-}));

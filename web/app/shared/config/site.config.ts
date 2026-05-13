@@ -32,7 +32,7 @@ export const siteConfig = {
   },
 
   /**
-   * Local area name used in headings (e.g. "Event i …", volontär copy).
+   * Local area name used in headings (e.g. "Vad händer i …").
    */
   areaName: "Min by",
 
@@ -51,12 +51,6 @@ export const siteConfig = {
       maxLat: 59.36,
     },
     keywords: ["minby", "östra byn", "vår by", "mina byn", "lilla byn"],
-  },
-
-  /** Static assets under `public/` */
-  assets: {
-    /** Fallback logo on frivilligkraft cards when no mission image is available */
-    frivilligkraftCardFallbackLogo: "/frivilligkraft-card-logo.svg",
   },
 } as const;
 

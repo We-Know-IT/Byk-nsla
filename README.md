@@ -37,8 +37,8 @@ The Next.js app proxies data through **App Router API routes** (`web/app/api/...
 
 | App | File | Purpose |
 | --- | --- | --- |
-| Backend | `backend/.env` | `PORT`, `EVENTS_PROVIDER`, `WEATHER_PROVIDER`, optional Ticketmaster keys — see `backend/.env.example` and [backend/README.md](backend/README.md). |
-| Web | `web/.env` | `NEXT_PUBLIC_MAPBOX_TOKEN` for Mapbox maps (start page and Samhällsbygge). Optional: `BACKEND_URL` (default `http://localhost:4000`), `APP_URL` (default `http://localhost:3000`) for server-side fetches to your own API routes. |
+| Backend | `backend/.env` | `PORT`, `WEATHER_PROVIDER` — see `backend/.env.example` and [backend/README.md](backend/README.md). |
+| Web | `web/.env` | `NEXT_PUBLIC_MAPBOX_TOKEN` for the map on the start page. Optional: `BACKEND_URL` (default `http://localhost:4000`), `APP_URL` (default `http://localhost:3000`) for server-side fetches to your own API routes. |
 
 Never commit real secrets; keep them in local `.env` files (they are gitignored where applicable).
 
@@ -54,7 +54,7 @@ Bykänsla/
 
 ### Backend (`backend/`)
 
-TypeScript **Express** server with an **adapter** pattern: domain modules depend on contracts (ports); concrete providers (mocks, Ticket Lund APIs, etc.) are selected via environment variables.
+TypeScript **Express** server with an **adapter** pattern: domain modules depend on contracts (ports); concrete providers (mocks first) are wired through registries and environment variables where switching makes sense.
 
 | Path | Role |
 | --- | --- |
@@ -75,10 +75,15 @@ TypeScript **Express** server with an **adapter** pattern: domain modules depend
 - `GET /health`
 - `GET /api/events`
 - `GET /api/weather`
-- `GET /api/frivilligkraft`
-- `GET /api/samhallsbygge`
 
-Provider switching (events, weather, etc.) is documented in [backend/README.md](backend/README.md).
+Events use a mock provider out of the box; weather uses a mock provider. See [backend/README.md](backend/README.md) for how to add real integrations.
+
+### Forking and adding a backend feature
+
+1. Define a port in `backend/src/adapters/contracts/`.
+2. Implement one or more providers under `backend/src/adapters/providers/` (start from `mock-*` as a template).
+3. Select the implementation in `backend/src/adapters/registry/` (and extend `backend/src/config/env.ts` if you need env-based switching).
+4. Add a route in `backend/src/routes/` and register it in `backend/src/app.ts`.
 
 ### Web (`web/`)
 
@@ -88,7 +93,7 @@ Provider switching (events, weather, etc.) is documented in [backend/README.md](
 | --- | --- |
 | `app/page.tsx` | Home / start route |
 | `app/layout.tsx` | Root layout |
-| `app/*/page.tsx` | Top-level routes (e.g. `event`, `frivilligkraft`, `samhallsbygge`, `utforska`, `trafik`, `vader`) |
+| `app/*/page.tsx` | Top-level routes (e.g. `event`, `utforska`, `trafik`, `vader`) |
 | `app/api/` | Next.js route handlers that forward to the backend |
 | `app/modules/` | Feature UI and data hooks per module |
 | `app/shared/` | Shared UI, `site.config.ts`, module nav config |

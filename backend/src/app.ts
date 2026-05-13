@@ -1,9 +1,7 @@
 import cors from "cors";
 import express from "express";
 import { eventsRouter } from "./routes/events.js";
-import { frivilligkraftRouter } from "./routes/frivilligkraft.js";
 import { healthRouter } from "./routes/health.js";
-import { samhallsbyggeRouter } from "./routes/samhallsbygge.js";
 import { weatherRouter } from "./routes/weather.js";
 import { notFoundHandler, sendError } from "./shared/http.js";
 
@@ -15,8 +13,6 @@ export const createApp = () => {
 
   app.use("/health", healthRouter);
   app.use("/api/events", eventsRouter);
-  app.use("/api/frivilligkraft", frivilligkraftRouter);
-  app.use("/api/samhallsbygge", samhallsbyggeRouter);
   app.use("/api/weather", weatherRouter);
 
   app.use(notFoundHandler);

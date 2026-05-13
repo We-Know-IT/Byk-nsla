@@ -1,10 +1,9 @@
 "use client";
 
 import mapboxgl from "mapbox-gl";
+import { siteConfig } from "../../shared/config/site.config";
 import type { MapAdapter, MapAdapterInitOptions } from "../contracts/map-adapter";
 import "mapbox-gl/dist/mapbox-gl.css";
-
-const FALLBACK_CENTER: [number, number] = [13.1906, 55.7047];
 
 export class MapboxMapAdapter implements MapAdapter {
   private map: mapboxgl.Map | null = null;
@@ -28,7 +27,7 @@ export class MapboxMapAdapter implements MapAdapter {
     this.map = new mapboxgl.Map({
       container,
       style: "mapbox://styles/mapbox/streets-v12",
-      center: FALLBACK_CENTER,
+      center: siteConfig.geography.center,
       zoom: 12,
     });
 
