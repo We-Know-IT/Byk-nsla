@@ -31,6 +31,43 @@ export function normalizeNavPath(path: string): string {
   return trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
 }
 
+/** Semantic palette; maps to CSS custom properties injected on `<html>`. */
+export type SiteTheme = {
+  background: string;
+  surface: string;
+  surfaceHover: string;
+  border: string;
+  foreground: string;
+  foregroundMuted: string;
+  brandPrimary: string;
+  brandForeground: string;
+};
+
+const siteTheme = {
+  background: "#eff4ff",
+  surface: "#f8faff",
+  surfaceHover: "#e8efff",
+  border: "#d4e0ff",
+  foreground: "#1c2e65",
+  foregroundMuted: "#4e5f8b",
+  brandPrimary: "#1f3fa6",
+  brandForeground: "#ffffff",
+} as const satisfies SiteTheme;
+
+/** Values for `style` on `<html>` (React/CSS custom properties). */
+export function siteThemeCssVars(theme: SiteTheme): Record<string, string> {
+  return {
+    "--background": theme.background,
+    "--surface": theme.surface,
+    "--surface-hover": theme.surfaceHover,
+    "--border": theme.border,
+    "--foreground": theme.foreground,
+    "--foreground-muted": theme.foregroundMuted,
+    "--brand-primary": theme.brandPrimary,
+    "--brand-foreground": theme.brandForeground,
+  };
+}
+
 export const siteConfig = {
   /** Shown in the top bar, document title, and other UI */
   name: "Bykänsla",
@@ -81,6 +118,9 @@ export const siteConfig = {
     },
     keywords: ["minby", "östra byn", "vår by", "mina byn", "lilla byn"],
   },
+
+  /** Core UI colors — applied in root layout as CSS variables. */
+  theme: siteTheme,
 
   /** Left sidebar links — single source of truth for routes and optional icons. */
   navigation: siteNavigation,

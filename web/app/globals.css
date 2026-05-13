@@ -1,15 +1,10 @@
 @import "tailwindcss";
 
+/*
+ * Semantic color variables (--background, --surface, …) are set on `<html>`
+ * from `siteConfig.theme` in `app/layout.tsx`.
+ */
 :root {
-  --background: #eff4ff; /* App background */
-  --surface: #f8faff; /* Cards, sidebar, topbar */
-  --surface-hover: #e8efff; /* Button hovers, menu hover */
-  --border: #d4e0ff;
-  --foreground: #1c2e65; /* Main text */
-  --foreground-muted: #4e5f8b;
-  --brand-primary: #1f3fa6; /* Buttons, links, highlights */
-  --brand-foreground: #ffffff; /* Text on brand buttons */
-  
   --font-sans-custom: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   --font-mono-custom: var(--font-geist-mono), monospace;
 }

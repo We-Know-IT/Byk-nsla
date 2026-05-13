@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
-import { siteConfig } from "./shared/config/site.config";
+import { siteConfig, siteThemeCssVars } from "./shared/config/site.config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html
       lang={siteConfig.htmlLang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      style={siteThemeCssVars(siteConfig.theme) as CSSProperties}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
