@@ -20,7 +20,19 @@ export default function SidebarNav({ items, activeKey }: SidebarNavProps) {
               className={`menuItem${isActive ? " isActive" : ""}`}
               aria-current={isActive ? "page" : undefined}
             >
-              <span className="menuLabel">{item.label}</span>
+              <span className="menuItemLeading">
+                {item.iconSrc ? (
+                  <img
+                    src={item.iconSrc}
+                    alt=""
+                    className="menuIcon"
+                    width={18}
+                    height={18}
+                    aria-hidden
+                  />
+                ) : null}
+                <span className="menuLabel">{item.label}</span>
+              </span>
               <span className="menuArrow" aria-hidden="true">
                 ›
               </span>

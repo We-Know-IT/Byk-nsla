@@ -1,29 +1,21 @@
-export type ModuleKey =
-  | "start"
-  | "event"
-  | "utforska"
-  | "trafik"
-  | "vader";
+import { normalizeNavPath, siteConfig, type ModuleKey } from "./site.config";
 
-export type ModuleConfig = {
+export type { ModuleKey };
+
+export type ModuleNavItem = {
   key: ModuleKey;
   label: string;
   href: string;
-  enabled: boolean;
+  iconSrc?: string | null;
 };
 
-export type ModuleNavItem = Pick<ModuleConfig, "key" | "label" | "href">;
-
-export const moduleConfigs: ModuleConfig[] = [
-  { key: "start", label: "Start", href: "/", enabled: true },
-  { key: "event", label: "Event", href: "/event", enabled: true },
-  { key: "utforska", label: "Utforska", href: "/utforska", enabled: true },
-  { key: "trafik", label: "Trafik", href: "/trafik", enabled: true },
-  { key: "vader", label: "Väder", href: "/vader", enabled: true },
-];
-
 export function getEnabledModuleNavItems(): ModuleNavItem[] {
-  return moduleConfigs
+  return siteConfig.navigation
     .filter((module) => module.enabled)
-    .map(({ key, label, href }) => ({ key, label, href }));
+    .map(({ key, label, path, iconSrc }) => ({
+      key,
+      label,
+      href: normalizeNavPath(path),
+      iconSrc: iconSrc ?? null,
+    }));
 }

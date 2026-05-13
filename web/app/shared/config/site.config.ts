@@ -2,6 +2,35 @@
  * Site branding and copy — edit this file when forking or deploying for a new municipality.
  * Keep asset files in `/web/public` and reference them with root-relative paths (e.g. `/brand/logo.svg`).
  */
+
+/** Sidebar nav entry: `path` may omit the leading slash; `iconSrc` points to `public/` (e.g. `/icons/start.svg`). */
+export type SiteNavItem = {
+  readonly key: string;
+  readonly label: string;
+  readonly path: string;
+  readonly enabled: boolean;
+  readonly iconSrc?: string | null;
+};
+
+export const siteNavigation = [
+  { key: "start", label: "Start", path: "/", enabled: true, iconSrc: null },
+  { key: "event", label: "Event", path: "/event", enabled: true, iconSrc: null },
+  { key: "utforska", label: "Utforska", path: "utforska", enabled: true, iconSrc: null },
+  { key: "trafik", label: "Trafik", path: "/trafik", enabled: true, iconSrc: null },
+  { key: "vader", label: "Väder", path: "vader", enabled: true, iconSrc: null },
+] as const satisfies readonly SiteNavItem[];
+
+export type ModuleKey = (typeof siteNavigation)[number]["key"];
+
+/** Turns config paths into Next.js hrefs (`event` → `/event`, empty → `/`). */
+export function normalizeNavPath(path: string): string {
+  const trimmed = path.trim();
+  if (trimmed === "" || trimmed === "/") {
+    return "/";
+  }
+  return trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+}
+
 export const siteConfig = {
   /** Shown in the top bar, document title, and other UI */
   name: "Bykänsla",
@@ -52,6 +81,9 @@ export const siteConfig = {
     },
     keywords: ["minby", "östra byn", "vår by", "mina byn", "lilla byn"],
   },
+
+  /** Left sidebar links — single source of truth for routes and optional icons. */
+  navigation: siteNavigation,
 } as const;
 
 export type SiteConfig = typeof siteConfig;
