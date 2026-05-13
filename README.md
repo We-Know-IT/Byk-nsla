@@ -1,5 +1,7 @@
 # Bykänsla
 
+Bykänsla är en öppen kodbas för en **digital lokal plattform** för byar och andra lokala sammanhang - en gemensam kärna som ska kunna återanvändas och anpassas utan att skrivas om från grunden. Det här repot är avsett som **startpunkt**: gör en fork, sätt egen identitet och konfiguration för din plats och koppla lokala datakällor via tydliga backend-adapters.
+
 ## Prerequisites
 
 - **Node.js** 20+ (LTS recommended)
