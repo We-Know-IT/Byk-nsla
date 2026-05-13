@@ -2,10 +2,8 @@ import { getEnabledModuleNavItems } from "../../shared/config/modules";
 import { siteConfig } from "../../shared/config/site.config";
 import AppTopbar from "../../shared/ui/app-topbar";
 import SidebarNav from "../start/components/sidebar-nav";
-import EventGridCard from "./components/event-grid-card";
-import EventToolbar from "./components/event-toolbar";
+import EventListingClient from "./components/event-listing-client";
 import type { EventGridCardData } from "./model/data";
-import { eventFilters, eventMonth } from "./model/data";
 
 type EventPageProps = {
   cards: EventGridCardData[];
@@ -22,7 +20,6 @@ export default function EventPage({ cards, listError }: EventPageProps) {
 
         <section className="contentArea eventPage" aria-label="Eventsida">
           <h1 className="eventPageTitle">Event i {siteConfig.areaName}</h1>
-          <EventToolbar filters={eventFilters} month={eventMonth} />
 
           {listError ? (
             <div className="underConstructionCard" role="status">
@@ -31,11 +28,7 @@ export default function EventPage({ cards, listError }: EventPageProps) {
             </div>
           ) : null}
 
-          <div className="eventGrid">
-            {cards.map((card) => (
-              <EventGridCard key={card.id} card={card} />
-            ))}
-          </div>
+          <EventListingClient cards={cards} />
         </section>
       </div>
     </main>

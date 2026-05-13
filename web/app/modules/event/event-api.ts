@@ -9,6 +9,7 @@ export type EventListItem = {
   imageUrl?: string;
   url?: string;
   locationLabel?: string;
+  category?: string;
 };
 
 type EventsApiSuccess = {
@@ -54,6 +55,8 @@ export function mapEventListToGridCards(items: EventListItem[]): EventGridCardDa
     location: item.locationLabel ?? siteConfig.areaName,
     imageUrl: item.imageUrl,
     eventUrl: item.url,
+    dateIso: item.date,
+    category: item.category,
   }));
 }
 

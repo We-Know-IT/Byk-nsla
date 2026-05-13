@@ -7,8 +7,15 @@ type EventGridCardProps = {
 };
 
 export default function EventGridCard({ card }: EventGridCardProps) {
-  
-  return (
-    <EventCard card={card} />
-  );
+  const cardForDisplay = {
+    id: card.id,
+    title: card.title,
+    date: card.date,
+    text: card.text,
+    cta: card.cta,
+    imageSrc: card.imageUrl,
+    eventUrl: card.eventUrl,
+  };
+
+  return <EventCard card={cardForDisplay} />;
 }

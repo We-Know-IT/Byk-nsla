@@ -29,6 +29,18 @@ body {
   margin: 0;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .screen {
   min-height: 100vh;
   background: var(--background);
@@ -450,6 +462,21 @@ body {
   align-items: center;
   padding: 0 16px;
   font-size: 18px;
+  cursor: text;
+}
+
+.eventSearchBarInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+
+.eventSearchBarInput::placeholder {
+  color: #555;
 }
 
 .eventSearchButton {
@@ -481,31 +508,218 @@ body {
   font-size: 14px;
 }
 
+.monthLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
 .monthArrow {
   width: 30px;
   padding: 0;
 }
 
 .eventFilters {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
-.eventFilterChip {
-  border: 1px solid #c4c4c4;
+.eventFilterDropdown {
+  position: relative;
+}
+
+.eventFilterDropdown[open] {
+  z-index: 60;
+}
+
+.eventFilterDropdown > summary {
+  list-style: none;
+}
+
+.eventFilterDropdown > summary::-webkit-details-marker {
+  display: none;
+}
+
+.eventFilterDropdownTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 28px;
+  padding: 0 14px;
   border-radius: 999px;
+  border: 1px solid #c4c4c4;
   background: #ececec;
-  color: #202020;
-  height: 28px;
-  padding: 0 12px;
+  color: #111;
   font-size: 14px;
+  line-height: 1.2;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.eventFilterDropdown--large .eventFilterDropdownTrigger {
+  min-height: 34px;
+  padding: 0 16px;
+  font-size: 15px;
+}
+
+.eventFilterDropdownTriggerText {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  font-weight: 500;
+}
+
+.eventFilterDropdownChevron {
+  flex-shrink: 0;
+  color: #111;
+  transition: transform 0.15s ease;
+}
+
+.eventFilterDropdown[open] > .eventFilterDropdownTrigger .eventFilterDropdownChevron {
+  transform: rotate(180deg);
+}
+
+.eventFilterDropdownPanel {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  max-width: min(320px, 92vw);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ececec;
+  border: 1px solid #bdbdbd;
+  box-shadow: 0 10px 28px rgb(0 0 0 / 14%);
+}
+
+.eventFilterDropdownPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
+  font-size: 14px;
+  color: #111;
+}
+
+.eventFilterDropdown--large .eventFilterDropdownPanelHeader {
+  padding: 10px 16px;
+  font-size: 15px;
+}
+
+.eventFilterDropdownPanelBody {
+  padding: 4px 0 8px;
+}
+
+.eventFilterCheckboxList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 8px 4px;
+}
+
+.eventFilterCheckboxRow {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  margin: 0 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #111;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.eventFilterCheckboxRow:hover {
+  background: rgb(0 0 0 / 5%);
+}
+
+.eventFilterCheckboxInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.eventFilterCheckboxBox {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  border: 1.5px solid #111;
+  border-radius: 2px;
+  background: transparent;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.eventFilterCheckboxRow:focus-within .eventFilterCheckboxBox {
+  outline: 2px solid #1f3fa6;
+  outline-offset: 2px;
+}
+
+.eventFilterCheckboxInput:checked + .eventFilterCheckboxBox {
+  background: #111;
+}
+
+.eventFilterCheckboxInput:checked + .eventFilterCheckboxBox::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.eventFilterCheckboxLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+.eventFilterCheckboxLabelTitle {
+  font-weight: 500;
+}
+
+.eventFilterCheckboxLabelHint {
+  font-size: 12px;
+  font-weight: 400;
+  color: #555;
 }
 
 .eventGrid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
+}
+
+.eventGridEmpty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 20px 8px;
+  text-align: center;
+  font-size: 15px;
+  color: #545454;
 }
 
 .eventGridCard {
