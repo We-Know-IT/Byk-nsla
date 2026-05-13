@@ -2,13 +2,6 @@ import type { EventGridCardData } from "./data";
 
 export type TimeSlotFilter = "all" | "morning" | "afternoon" | "evening";
 
-export type DateScopeFilter = "all" | "month";
-
-export type ViewMonth = {
-  year: number;
-  monthIndex: number;
-};
-
 export type EventFilterCriteria = {
   search: string;
   /** Empty = all locations */
@@ -16,8 +9,6 @@ export type EventFilterCriteria = {
   /** Empty = all categories */
   categories: string[];
   timeSlot: TimeSlotFilter;
-  dateScope: DateScopeFilter;
-  viewMonth: ViewMonth;
 };
 
 const OTHER_CATEGORY = "Övrigt";
@@ -51,12 +42,6 @@ function cardCategory(card: EventGridCardData): string {
   return c ? c : OTHER_CATEGORY;
 }
 
-function matchesMonth(card: EventGridCardData, viewMonth: ViewMonth): boolean {
-  const d = parseEventDate(card.dateIso);
-  if (!d) return false;
-  return d.getFullYear() === viewMonth.year && d.getMonth() === viewMonth.monthIndex;
-}
-
 function matchesSearch(card: EventGridCardData, q: string): boolean {
   if (!q) return true;
   const n = normalizeSearch(q);
@@ -77,7 +62,6 @@ function matchesTimeSlot(card: EventGridCardData, slot: TimeSlotFilter): boolean
 
 /**
  * Filters event cards. Options for Plats/Eventtyp should be derived from the full unfiltered list.
- * Cards without `dateIso` are excluded when `dateScope === "month"` (predictable month view).
  * `locations` / `categories`: empty arrays mean no filter (all); otherwise card must match one of the selected values.
  */
 export function filterEventCards(
@@ -98,10 +82,6 @@ export function filterEventCards(
 
     if (!matchesTimeSlot(card, criteria.timeSlot)) return false;
 
-    if (criteria.dateScope === "month") {
-      if (!matchesMonth(card, criteria.viewMonth)) return false;
-    }
-
     return true;
   });
 }
@@ -116,15 +96,4 @@ export function uniqueCategories(cards: EventGridCardData[]): string[] {
   const set = new Set<string>();
   for (const c of cards) set.add(cardCategory(c));
   return [...set].sort((a, b) => a.localeCompare(b, "sv"));
-}
-
-export function inferInitialViewMonth(cards: EventGridCardData[]): ViewMonth {
-  const now = new Date();
-  for (const card of cards) {
-    const d = parseEventDate(card.dateIso);
-    if (d) {
-      return { year: d.getFullYear(), monthIndex: d.getMonth() };
-    }
-  }
-  return { year: now.getFullYear(), monthIndex: now.getMonth() };
 }

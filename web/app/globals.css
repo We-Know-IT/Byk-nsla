@@ -490,36 +490,6 @@ body {
   cursor: pointer;
 }
 
-.eventMonthControls {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.monthArrow,
-.monthLabel {
-  border: 1px solid #b9b9b9;
-  border-radius: 999px;
-  background: #fff;
-  color: #202020;
-  height: 30px;
-  padding: 0 10px;
-  font-size: 14px;
-}
-
-.monthLabel {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
-.monthArrow {
-  width: 30px;
-  padding: 0;
-}
-
 .eventFilters {
   position: relative;
   z-index: 1;
@@ -889,10 +859,6 @@ body {
 
   .eventToolbarTop {
     flex-wrap: wrap;
-  }
-
-  .eventMonthControls {
-    margin-left: 0;
   }
 
   .eventGrid {
