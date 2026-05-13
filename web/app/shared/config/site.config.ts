@@ -100,7 +100,7 @@ export const siteConfig = {
   /**
    * Local area name used in headings (e.g. "Vad händer i …").
    */
-  areaName: "Min by",
+  areaName: "Min lilla by",
 
   /**
    * Geography configuration for the local area.
