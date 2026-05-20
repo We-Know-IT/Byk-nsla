@@ -39,7 +39,10 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
                   <img
                     src={item.iconSrc}
                     alt=""
-                    className="size-[18px] shrink-0 object-contain"
+                    className={cn(
+                      "size-[18px] shrink-0 object-contain",
+                      isActive && "brightness-0 invert",
+                    )}
                     width={18}
                     height={18}
                     aria-hidden
