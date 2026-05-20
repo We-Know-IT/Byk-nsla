@@ -25,7 +25,7 @@ export default function EventCard({ card }: EventCardProps) {
         style={eventImageStyle}
       />
 
-      <Button variant="round" size="sm" className="absolute top-3 right-3 bg-surface text-foreground transition hover:bg-surface-hover" aria-label="Spara">
+      <Button variant="round" size="sm" className="absolute top-3 right-3 bg-surface text-foreground transition hover:bg-brand-third" aria-label="Spara">
         ♡
       </Button>
 

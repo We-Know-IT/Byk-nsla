@@ -6,10 +6,10 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                default: "bg-brand text-brand-foreground hover:opacity-90 rounded-md",
-                outline: "border border-border bg-transparent hover:bg-surface-hover text-foreground rounded-md",
-                ghost: "bg-transparent hover:bg-surface-hover text-foreground rounded-md",
-                round: "bg-brand text-brand-foreground hover:opacity-90 rounded-full",
+                default: "bg-brand-secondary text-brand-foreground hover:opacity-90 rounded-md",
+                outline: "border border-border bg-transparent hover:bg-brand-secondary text-foreground rounded-md",
+                ghost: "bg-transparent hover:bg-brand-third text-foreground rounded-md",
+                round: "bg-brand-secondary text-brand-foreground hover:opacity-90 rounded-full",
             },
             size: {
                 default: "h-10 py-2 px-4",

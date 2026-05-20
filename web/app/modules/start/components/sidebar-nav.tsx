@@ -29,8 +29,8 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
               key={item.key}
               href={item.href}
               className={cn(
-                "flex min-h-[38px] w-full cursor-pointer items-center justify-between rounded-full border-none bg-surface px-3 py-2.5 text-sm leading-snug text-foreground no-underline hover:bg-surface-hover",
-                isActive && "bg-brand text-background hover:bg-brand",
+                "flex min-h-[38px] w-full cursor-pointer items-center justify-between rounded-full border-none bg-surface px-3 py-2.5 text-sm leading-snug text-foreground no-underline hover:bg-brand-third",
+                isActive && "bg-brand-secondary text-background hover:bg-brand-secondary",
               )}
               aria-current={isActive ? "page" : undefined}
             >

@@ -65,7 +65,7 @@ const CardMedia = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
       return (
         <div
           ref={ref}
-          className={cn("bg-surface-hover bg-cover bg-center shrink-0", className)}
+          className={cn("bg-brand-foreground bg-cover bg-center shrink-0", className)}
           style={{ backgroundImage: `url(${src})`, ...props.style }}
           {...props}
         />
@@ -75,7 +75,7 @@ const CardMedia = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
     return (
       <div
         ref={ref}
-        className={cn("flex items-center justify-center bg-surface-hover text-foreground-muted text-sm p-4 text-center shrink-0", className)}
+        className={cn("flex items-center justify-center bg-brand-foreground text-foreground-muted text-sm p-4 text-center shrink-0", className)}
         {...props}
       >
         {fallback}

@@ -35,23 +35,25 @@ export function normalizeNavPath(path: string): string {
 export type SiteTheme = {
   background: string;
   surface: string;
-  surfaceHover: string;
   border: string;
   foreground: string;
   foregroundMuted: string;
   brandPrimary: string;
+  brandSecondary: string;
+  brandThird: string;
   brandForeground: string;
 };
 
 const siteTheme = {
-  background: "#eff4ff",
-  surface: "#f8faff",
-  surfaceHover: "#e8efff",
-  border: "#d4e0ff",
-  foreground: "#1c2e65",
-  foregroundMuted: "#4e5f8b",
-  brandPrimary: "#1f3fa6",
-  brandForeground: "#ffffff",
+  background: "#FAFAFA",
+  surface: "#FAFAFA",
+  border: "#E0E0E0",
+  foreground: "#000000",
+  foregroundMuted: "#4E4E4E",
+  brandPrimary: "#461F01",
+  brandSecondary: "#D25E06",
+  brandThird: "#FDA664",
+  brandForeground: "#FFF7F2",
 } as const satisfies SiteTheme;
 
 /** Values for `style` on `<html>` (React/CSS custom properties). */
@@ -59,11 +61,12 @@ export function siteThemeCssVars(theme: SiteTheme): Record<string, string> {
   return {
     "--background": theme.background,
     "--surface": theme.surface,
-    "--surface-hover": theme.surfaceHover,
     "--border": theme.border,
     "--foreground": theme.foreground,
     "--foreground-muted": theme.foregroundMuted,
     "--brand-primary": theme.brandPrimary,
+    "--brand-secondary": theme.brandSecondary,
+    "--brand-third": theme.brandThird,
     "--brand-foreground": theme.brandForeground,
   };
 }

@@ -12,12 +12,13 @@
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
-  --color-surface-hover: var(--surface-hover);
   --color-border: var(--border);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
   --color-brand: var(--brand-primary);
   --color-brand-foreground: var(--brand-foreground);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-third: var(--brand-third);
   --font-sans: var(--font-sans-custom);
   --font-mono: var(--font-mono-custom);
 }

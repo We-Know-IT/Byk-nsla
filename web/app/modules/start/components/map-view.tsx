@@ -29,7 +29,7 @@ export default function MapView() {
           className="min-h-[380px] overflow-hidden rounded-[10px] border border-border bg-surface"
         />
       ) : (
-        <div className="grid min-h-[380px] place-items-center overflow-hidden rounded-[10px] border border-border bg-surface p-[18px] text-center text-sm text-neutral-600">
+        <div className="grid min-h-[380px] place-items-center overflow-hidden rounded-[10px] border border-border bg-brand-foreground p-[18px] text-center text-sm text-neutral-600">
           <p>Karta visas här när NEXT_PUBLIC_MAPBOX_TOKEN finns i web/.env.</p>
         </div>
       )}
