@@ -19,16 +19,32 @@ export const metadata: Metadata = {
   description: siteConfig.metadata.description,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let theme = siteConfig.theme;
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+    const res = await fetch(`${apiUrl}/site-themes/active`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      const result = await res.json();
+      if (result.success && result.data && result.data.colors) {
+        theme = result.data.colors;
+      }
+    }
+  } catch (error) {
+    console.error("Failed to fetch active theme for layout", error);
+  }
+
   return (
     <html
       lang={siteConfig.htmlLang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      style={siteThemeCssVars(siteConfig.theme) as CSSProperties}
+      style={siteThemeCssVars(theme) as CSSProperties}
     >
       <body className="m-0 min-h-full flex flex-col bg-surface font-sans text-foreground">
         {children}

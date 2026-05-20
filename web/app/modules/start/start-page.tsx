@@ -4,7 +4,7 @@ import { getEvents } from "../event/event-api";
 import AppTopbar from "../../shared/ui/app-topbar";
 import EventCard from "../event/components/event-card";
 import MapView from "./components/map-view";
-import SectionHeader from "./components/section-header";
+import SectionHeader from "../../shared/ui/section-header";
 import SidebarNav from "./components/sidebar-nav";
 import SpotlightCard from "./components/spotlight-card";
 import { cityCards, sectionDescription, spotlightCards } from "./model/data";
