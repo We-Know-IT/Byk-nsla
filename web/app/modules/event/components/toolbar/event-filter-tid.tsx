@@ -22,7 +22,7 @@ export default function EventFilterTid({ value, onChange }: EventFilterTidProps)
 
   return (
     <EventFilterDropdown label="Tid" summarySuffix={suffix} size="large">
-      <div className="eventFilterCheckboxList">
+      <div className="flex flex-col gap-0.5 px-2 py-1">
         {TID_OPTIONS.map((opt) => (
           <EventFilterCheckboxRow
             key={opt.value}

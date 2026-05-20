@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
+import { cn } from "../../../../shared/utils/cn";
 
 function ChevronDown({ className }: { className?: string }) {
   return (
@@ -42,8 +43,17 @@ export default function EventFilterDropdown({
   size = "default",
 }: EventFilterDropdownProps) {
   const ref = useRef<HTMLDetailsElement>(null);
-  const sizeClass = size === "large" ? " eventFilterDropdown--large" : "";
   const title = `${label}${summarySuffix ?? ""}`;
+
+  const triggerClass = cn(
+    "flex min-h-7 cursor-pointer list-none items-center justify-between gap-2.5 rounded-full border border-[#c4c4c4] bg-[#ececec] px-3.5 text-sm font-medium leading-snug text-[#111] [list-style:none] [&::-webkit-details-marker]:hidden",
+    size === "large" && "min-h-[34px] px-4 text-[15px]",
+  );
+
+  const headerClass = cn(
+    "flex items-center justify-between gap-2.5 border-b border-black/10 px-3.5 py-2 text-sm text-[#111]",
+    size === "large" && "px-4 py-2.5 text-[15px]",
+  );
 
   useEffect(() => {
     const el = ref.current;
@@ -70,17 +80,17 @@ export default function EventFilterDropdown({
   }, []);
 
   return (
-    <details ref={ref} className={`eventFilterDropdown${sizeClass}`}>
-      <summary className="eventFilterDropdownTrigger">
-        <span className="eventFilterDropdownTriggerText">{title}</span>
-        <ChevronDown className="eventFilterDropdownChevron" />
+    <details ref={ref} className="group relative z-[1] open:z-[60]">
+      <summary className={triggerClass}>
+        <span className="min-w-0 flex-1 text-left font-medium">{title}</span>
+        <ChevronDown className="shrink-0 text-[#111] transition-transform duration-150 ease-in-out group-open:rotate-180" />
       </summary>
-      <div className="eventFilterDropdownPanel">
-        <div className="eventFilterDropdownPanelHeader" aria-hidden="true">
-          <span className="eventFilterDropdownTriggerText">{title}</span>
-          <ChevronDown className="eventFilterDropdownChevron" />
+      <div className="absolute left-0 top-[calc(100%+6px)] z-50 min-w-[220px] max-w-[min(320px,92vw)] overflow-hidden rounded-xl border border-[#bdbdbd] bg-[#ececec] shadow-[0_10px_28px_rgb(0_0_0/0.14)]">
+        <div className={headerClass} aria-hidden="true">
+          <span className="min-w-0 flex-1 text-left font-medium">{title}</span>
+          <ChevronDown className="shrink-0 text-[#111] transition-transform duration-150 ease-in-out group-open:rotate-180" />
         </div>
-        <div className="eventFilterDropdownPanelBody">{children}</div>
+        <div className="px-0 pb-2 pt-1">{children}</div>
       </div>
     </details>
   );

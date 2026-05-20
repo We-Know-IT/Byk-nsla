@@ -32,8 +32,8 @@ export default function EventToolbar({
   onTimeSlotChange,
 }: EventToolbarProps) {
   return (
-    <div className="eventToolbar">
-      <div className="eventToolbarTop">
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-2 max-[980px]:flex-wrap">
         <EventSearchBar
           value={searchDraft}
           onChange={onSearchDraftChange}
@@ -41,7 +41,7 @@ export default function EventToolbar({
         />
       </div>
 
-      <div className="eventFilters">
+      <div className="relative z-[1] flex flex-wrap items-center gap-2">
         <EventFilterPlats
           options={locationOptions}
           selected={selectedLocations}

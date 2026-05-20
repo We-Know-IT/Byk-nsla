@@ -18,7 +18,7 @@ export default function EventFilterEventtyp({
 
   return (
     <EventFilterDropdown label="Eventtyp" summarySuffix={suffix} size="large">
-      <div className="eventFilterCheckboxList">
+      <div className="flex flex-col gap-0.5 px-2 py-1">
         {options.map((cat) => (
           <EventFilterCheckboxRow
             key={cat}

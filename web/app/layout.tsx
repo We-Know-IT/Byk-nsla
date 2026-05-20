@@ -30,7 +30,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       style={siteThemeCssVars(siteConfig.theme) as CSSProperties}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="m-0 min-h-full flex flex-col bg-surface font-sans text-foreground">
+        {children}
+      </body>
     </html>
   );
 }

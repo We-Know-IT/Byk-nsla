@@ -22,11 +22,14 @@ export default function MapView() {
   const isAvailable = mapAdapter.isAvailable();
 
   return (
-    <div className="mapShell">
+    <div className="min-h-[340px]">
       {isAvailable ? (
-        <div ref={mapContainerRef} className="mapCanvas" />
+        <div
+          ref={mapContainerRef}
+          className="min-h-[380px] overflow-hidden rounded-[10px] border border-border bg-surface"
+        />
       ) : (
-        <div className="mapFallback">
+        <div className="grid min-h-[380px] place-items-center overflow-hidden rounded-[10px] border border-border bg-surface p-[18px] text-center text-sm text-neutral-600">
           <p>Karta visas här när NEXT_PUBLIC_MAPBOX_TOKEN finns i web/.env.</p>
         </div>
       )}

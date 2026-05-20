@@ -14,7 +14,7 @@ export default function EventFilterPlats({ options, selected, onToggle }: EventF
 
   return (
     <EventFilterDropdown label="Plats" summarySuffix={suffix} size="large">
-      <div className="eventFilterCheckboxList">
+      <div className="flex flex-col gap-0.5 px-2 py-1">
         {options.map((loc) => (
           <EventFilterCheckboxRow
             key={loc}
