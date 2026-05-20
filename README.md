@@ -6,17 +6,20 @@ Bykänsla är en öppen kodbas för en **digital lokal plattform** för byar och
 
 - **Node.js** 20+ (LTS recommended)
 - **npm** (ships with Node)
+- **Docker** (for running the Postgres database)
 
 ## Quick start
 
 Run the API and the web app in **two terminals** from the repository root.
 
-### 1. Backend API
+### 1. Database & Backend API
 
 ```bash
 cd backend
 cp .env.example .env
 npm install
+docker compose up -d
+npx prisma migrate dev
 npm run dev
 ```
 
@@ -86,6 +89,17 @@ Events use a mock provider out of the box; weather uses a mock provider. See [ba
 2. Implement one or more providers under `backend/src/adapters/providers/` (start from `mock-*` as a template).
 3. Select the implementation in `backend/src/adapters/registry/` (and extend `backend/src/config/env.ts` if you need env-based switching).
 4. Add a route in `backend/src/routes/` and register it in `backend/src/app.ts`.
+
+### Updating the database (Prisma)
+
+When you make changes to the database schema (`backend/prisma/schema.prisma`), you need to create a new migration and apply it:
+
+```bash
+cd backend
+npx prisma migrate dev --name <migration_name>
+```
+
+This will also automatically run `npx prisma generate` to update the generated Prisma Client.
 
 ### Web (`web/`)
 
