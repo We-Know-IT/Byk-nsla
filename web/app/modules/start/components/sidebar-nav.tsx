@@ -1,17 +1,24 @@
 import Link from "next/link";
-import type { ModuleKey, ModuleNavItem } from "../../../shared/config/modules";
 import { cn } from "../../../shared/utils/cn";
 
-type SidebarNavProps = {
-  items: ModuleNavItem[];
-  activeKey: ModuleKey;
+export type SidebarNavItem = {
+  key: string;
+  label: string;
+  href: string;
+  iconSrc?: string | null;
 };
 
-export default function SidebarNav({ items, activeKey }: SidebarNavProps) {
+type SidebarNavProps = {
+  items: readonly SidebarNavItem[];
+  activeKey: string;
+  ariaLabel?: string;
+};
+
+export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavProps) {
   return (
     <aside
       className="w-[220px] min-w-[220px] shrink-0 grow-0 basis-[220px] border-r border-border bg-surface p-2 max-[980px]:w-full max-[980px]:min-w-0 max-[980px]:shrink max-[980px]:grow max-[980px]:basis-auto max-[980px]:border-r-0 max-[980px]:border-b max-[980px]:border-border max-[980px]:px-2.5 max-[980px]:py-2"
-      aria-label="Vanstermeny"
+      aria-label={ariaLabel ?? "Vänstermeny"}
     >
       <nav className="flex flex-col gap-1 max-[980px]:flex-row max-[980px]:overflow-x-auto">
         {items.map((item) => {

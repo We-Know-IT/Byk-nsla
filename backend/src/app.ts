@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import { eventsRouter } from "./routes/events.js";
 import { healthRouter } from "./routes/health.js";
+import { siteThemesRouter } from "./routes/site-themes.js";
 import { weatherRouter } from "./routes/weather.js";
 import { notFoundHandler, sendError } from "./shared/http.js";
 
@@ -13,6 +14,7 @@ export const createApp = () => {
 
   app.use("/health", healthRouter);
   app.use("/api/events", eventsRouter);
+  app.use("/api/site-themes", siteThemesRouter);
   app.use("/api/weather", weatherRouter);
 
   app.use(notFoundHandler);
