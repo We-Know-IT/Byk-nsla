@@ -1,5 +1,5 @@
-import { AdminSectionPage, adminNavItems } from "../modules/admin";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return <AdminSectionPage activeKey="dashboard" navItems={adminNavItems} />;
+  redirect("/admin/dashboard");
 }
