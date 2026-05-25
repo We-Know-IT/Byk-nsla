@@ -81,6 +81,7 @@ temp/
 *.local
 *.bak
 *.tmp
+.agent.md
 
 # --- Optional: other stacks people might add next to web/backend ---
 .venv/

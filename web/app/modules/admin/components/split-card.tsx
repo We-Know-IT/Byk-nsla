@@ -26,10 +26,10 @@ export function SplitCard({
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
       onClick={onClick}
-      className={`rounded-2xl border border-border bg-background p-4 flex hover:shadow-sm ${onClick ? "cursor-pointer" : ""} ${className}`}
+      className={`relative w-full rounded-2xl border border-border bg-background p-4 flex overflow-hidden hover:shadow-sm ${onClick ? "cursor-pointer" : ""} ${className}`}
     >
-      <div className={`pr-4 ${leftBasisClassName} ${leftClassName}`}>{left}</div>
-      <div className={`flex items-center justify-end gap-3 ${rightBasisClassName} ${rightClassName}`}>{right}</div>
+      <div className={`pr-4 min-w-0 ${leftBasisClassName} ${leftClassName}`}>{left}</div>
+      <div className={`flex items-center justify-end gap-3 min-w-0 ${rightBasisClassName} ${rightClassName}`}>{right}</div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { SplitCard } from "./split-card";
+import { useSettings } from "./settings-context";
 
 type ThemePreset = {
   key: string;
@@ -25,7 +26,9 @@ type ThemePreset = {
 export default function ThemeSelector() {
   const [themes, setThemes] = useState<ThemePreset[]>([]);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+  const originalKeyRef = useRef<string | null>(null);
+  const { registerSaveAction, unregisterSaveAction, registerResetAction, unregisterResetAction, setHasChanges } = useSettings();
 
   useEffect(() => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
@@ -34,6 +37,10 @@ export default function ThemeSelector() {
       .then((data) => {
         if (data.success && data.data) {
           setThemes(data.data.themes);
+          const activeItem = data.data.themes.find((t: ThemePreset) => t.isActive);
+          const key = activeItem ? activeItem.key : (data.data.themes[0]?.key || null);
+          originalKeyRef.current = key;
+          setSelectedKey(key);
         }
         setLoading(false);
       })
@@ -43,36 +50,47 @@ export default function ThemeSelector() {
       });
   }, []);
 
-  const handleActivate = async (key: string) => {
-    setSaving(true);
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
-      const res = await fetch(`${apiUrl}/site-themes/active`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key }),
-      });
-      const result = await res.json();
-      
-      if (result.success) {
-        // Optimistically update the UI to show the new active theme
-        setThemes((prev) =>
-          prev.map((t) => ({ ...t, isActive: t.key === key }))
-        );
-        // Reload the window to re-run SSR layout and apply the theme across the site
-        window.location.reload();
-      }
-    } catch (err) {
-      console.error("Failed to activate theme:", err);
-    } finally {
-      setSaving(false);
+  const handleSave = useCallback(async () => {
+    if (!selectedKey || selectedKey === originalKeyRef.current) return;
+    
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+    const res = await fetch(`${apiUrl}/site-themes/active`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key: selectedKey }),
+    });
+    const result = await res.json();
+    if (!result.success) {
+      throw new Error(result.error?.message || "Failed to save theme");
     }
+    originalKeyRef.current = selectedKey;
+    setHasChanges("theme", false);
+  }, [selectedKey, setHasChanges]);
+
+  const handleReset = useCallback(() => {
+    setSelectedKey(originalKeyRef.current);
+    setHasChanges("theme", false);
+  }, [setHasChanges]);
+
+  useEffect(() => {
+    registerSaveAction("theme", handleSave);
+    registerResetAction("theme", handleReset);
+    return () => {
+      unregisterSaveAction("theme");
+      unregisterResetAction("theme");
+    };
+  }, [handleReset, registerResetAction, registerSaveAction, unregisterResetAction, unregisterSaveAction, handleSave]);
+
+  const handleChange = (key: string) => {
+    setSelectedKey(key);
+    setHasChanges("theme", true);
   };
 
   if (loading) {
     return <div className="text-sm p-4">Laddar teman...</div>;
   }
-  const active = themes.find((t) => t.isActive) || themes[0];
+  
+  const active = themes.find((t) => t.key === selectedKey) || themes[0];
 
   return (
     <div className="w-full">
@@ -98,8 +116,8 @@ export default function ThemeSelector() {
               aria-label="Välj tema"
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
               value={active?.key || ""}
-              onChange={(event) => handleActivate(event.target.value)}
-              disabled={saving || themes.length === 0}
+              onChange={(event) => handleChange(event.target.value)}
+              disabled={themes.length === 0}
             >
               {themes.map((theme) => (
                 <option 

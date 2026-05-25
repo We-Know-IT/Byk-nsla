@@ -10,13 +10,14 @@ type EventPageProps = {
   listError: string | null;
 };
 
-export default function EventPage({ cards, listError }: EventPageProps) {
+export default async function EventPage({ cards, listError }: EventPageProps) {
+  const navItems = await getEnabledModuleNavItems();
   return (
     <main className="min-h-screen bg-background">
       <AppTopbar />
 
       <div className="flex min-h-[calc(100vh-66px)] max-[980px]:flex-col">
-        <SidebarNav items={getEnabledModuleNavItems()} activeKey="event" />
+        <SidebarNav items={navItems} activeKey="event" />
 
         <section
           className="flex flex-1 flex-col gap-2.5 px-4 pb-8 pt-4"

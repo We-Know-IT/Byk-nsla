@@ -39,12 +39,14 @@ export default async function StartPage() {
         }))
       : cityCards;
 
+  const navItems = await getEnabledModuleNavItems();
+
   return (
     <main className="min-h-screen bg-background">
       <AppTopbar />
 
       <div className="flex min-h-[calc(100vh-66px)] max-[980px]:flex-col">
-        <SidebarNav items={getEnabledModuleNavItems()} activeKey="start" />
+        <SidebarNav items={navItems} activeKey="start" />
 
         <section
           className="flex flex-1 flex-col gap-[22px] px-4 pb-8 pt-4"

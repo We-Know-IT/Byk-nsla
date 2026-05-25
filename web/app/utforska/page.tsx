@@ -1,5 +1,5 @@
 import UnderConstructionPage from "../shared/ui/under-construction-page";
 
-export default function UtforskaPage() {
+export default async function UtforskaPage() {
   return <UnderConstructionPage activeKey="utforska" title="Utforska" />;
 }

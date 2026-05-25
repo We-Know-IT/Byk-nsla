@@ -3,16 +3,17 @@ import ThemeSelector from "../../modules/admin/components/theme-selector";
 import StartPageSectionsSelector from "../../modules/admin/components/start-page-sections-selector";
 import PageSelector from "@/app/modules/admin/components/page-selector";
 import SectionHeader from "../../shared/ui/section-header";
+import { SettingsProvider } from "../../modules/admin/components/settings-context";
 
 export default function Page() {
     return (
         <AdminSectionPage activeKey="installningar" navItems={adminNavItems}>
-            <div className="flex flex-col">
-                <SectionHeader title="Inställningar" as="h1" />
-                <p className="text-foreground-muted mb-6">
-                    Ändra plattformens innehåll, sidor, bilder och färgtema för att skräddarsy plattformen för din by.
-                </p>
-                <div>
+            <div className="relative flex flex-col pt-1">
+                <SettingsProvider>
+                    <SectionHeader title="Inställningar" as="h1" />
+                    <p className="text-foreground-muted mb-6 w-3/4">
+                        Ändra plattformens innehåll, sidor, bilder och färgtema för att skräddarsy plattformen för din by.
+                    </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <section className="mb-0">
                             <h2 className="text-lg font-semibold mb-4">Startsidesektioner</h2>
@@ -31,7 +32,7 @@ export default function Page() {
                             </div>
                         </section>
                     </div>
-                </div>
+                </SettingsProvider>
             </div>
         </AdminSectionPage>
     );
