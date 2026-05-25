@@ -6,7 +6,7 @@ import ThemeSelector from "../../modules/admin/components/theme-selector";
 import StartPageSectionsSelector from "../../modules/admin/components/start-page-sections-selector";
 import PageSelector from "@/app/modules/admin/components/page-selector";
 import SectionHeader from "../../shared/ui/section-header";
-import { SettingsProvider } from "../../modules/admin/components/settings-context";
+import { SettingsActionsBar, SettingsProvider } from "../../modules/admin/components/settings-context";
 
 export default function Page() {
     useEffect(() => {
@@ -25,22 +25,25 @@ export default function Page() {
             <div className="relative flex flex-col pt-1">
                 <SettingsProvider>
                     <SectionHeader title="Inställningar" as="h1" />
-                    <p className="text-foreground-muted mb-6 w-3/4">
+                    <p className="my-2 w-full text-foreground-muted md:mb-6 md:w-3/4">
                         Ändra plattformens innehåll, sidor, bilder och färgtema för att skräddarsy plattformen för din by.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="mb-2 flex justify-end">
+                        <SettingsActionsBar />
+                    </div>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                         <section className="mb-0">
-                            <h2 className="text-lg font-semibold mb-4">Startsidesektioner</h2>
+                            <h2 className="mb-4 text-lg font-semibold">Startsidesektioner</h2>
                             <div className="mt-2">
                                 <StartPageSectionsSelector />
                             </div>
                         </section>
                         <section className="mb-0">
-                            <h2 className="text-lg font-semibold mb-4">Sidor</h2>
-                            <PageSelector/>
+                            <h2 className="mb-4 text-lg font-semibold">Sidor</h2>
+                            <PageSelector />
                         </section>
                         <section className="mb-0">
-                            <h2 className="text-lg font-semibold mb-4">Design</h2>
+                            <h2 className="mb-4 text-lg font-semibold">Design</h2>
                             <div className="mt-2">
                                 <ThemeSelector />
                             </div>
