@@ -16,7 +16,7 @@ export default async function EventPage({ cards, listError }: EventPageProps) {
     <main className="min-h-screen bg-background">
       <AppTopbar />
 
-      <div className="flex min-h-[calc(100vh-66px)] max-[980px]:flex-col">
+      <div className="flex md:min-h-[calc(100vh-66px)] flex-col md:flex-row">
         <SidebarNav items={navItems} activeKey="event" />
 
         <section
@@ -29,7 +29,7 @@ export default async function EventPage({ cards, listError }: EventPageProps) {
 
           {listError ? (
             <div
-              className="max-w-[520px] rounded-[10px] border border-border bg-surface p-[22px] shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
+              className="max-w-130 rounded-[10px] border border-border bg-surface p-5.5 shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
               role="status"
             >
               <p>{listError}</p>

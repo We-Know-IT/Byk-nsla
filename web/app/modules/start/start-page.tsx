@@ -45,17 +45,17 @@ export default async function StartPage() {
     <main className="min-h-screen bg-background">
       <AppTopbar />
 
-      <div className="flex min-h-[calc(100vh-66px)] max-[980px]:flex-col">
+      <div className="flex min-h-[calc(100vh-66px)] flex-col md:flex-row">
         <SidebarNav items={navItems} activeKey="start" />
 
         <section
-          className="flex flex-1 flex-col gap-[22px] px-4 pb-8 pt-4"
+          className="flex flex-1 flex-col gap-5.5 px-4 pb-8 pt-4"
           aria-label="Startsida"
         >
           <div className="flex flex-col gap-2">
             <SectionHeader title="Just nu" as="h1" />
             <p className="m-0 text-sm leading-tight text-foreground-muted">{sectionDescription}</p>
-            <div className="grid grid-cols-3 gap-3 max-[980px]:grid-cols-1">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
               {spotlightCards.map((card) => (
                 <SpotlightCard key={card.id} card={card} />
               ))}
@@ -73,7 +73,7 @@ export default async function StartPage() {
             <p className="m-0 text-sm leading-tight text-foreground-muted">{sectionDescription}</p>
             {eventError ? (
               <div
-                className="max-w-[520px] rounded-[10px] border border-border bg-surface p-[22px] shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
+                className="max-w-130 rounded-[10px] border border-border bg-surface p-5.5 shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
                 role="status"
               >
                 <p>{eventError}</p>

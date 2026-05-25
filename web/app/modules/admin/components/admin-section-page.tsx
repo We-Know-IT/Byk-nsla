@@ -12,7 +12,7 @@ export default function AdminSectionPage({ activeKey, navItems, children }: Admi
     <main className="min-h-screen bg-background">
       <AppTopbar />
 
-      <div className="flex min-h-[calc(100vh-66px)] max-[980px]:flex-col">
+      <div className="flex md:min-h-[calc(100vh-66px)] flex-col md:flex-row">
         <SidebarNav items={navItems} activeKey={activeKey} ariaLabel="Adminnavigation" />
 
         <section className="flex flex-1 flex-col px-4 pb-8 pt-4" aria-label="Admin">

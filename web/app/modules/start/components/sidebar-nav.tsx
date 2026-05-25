@@ -17,10 +17,10 @@ type SidebarNavProps = {
 export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavProps) {
   return (
     <aside
-      className="w-[220px] min-w-[220px] shrink-0 grow-0 basis-[220px] border-r border-border bg-surface p-2 max-[980px]:w-full max-[980px]:min-w-0 max-[980px]:shrink max-[980px]:grow max-[980px]:basis-auto max-[980px]:border-r-0 max-[980px]:border-b max-[980px]:border-border max-[980px]:px-2.5 max-[980px]:py-2"
+      className="w-full min-w-0 shrink grow basis-auto border-b border-border bg-surface px-2.5 py-2 md:w-55 md:min-w-55 md:shrink-0 md:grow-0 md:basis-55 md:border-r md:border-b-0 md:p-2"
       aria-label={ariaLabel ?? "Vänstermeny"}
     >
-      <nav className="flex flex-col gap-1 max-[980px]:flex-row max-[980px]:overflow-x-auto">
+      <nav className="flex flex-row gap-1.5 overflow-x-auto pb-1 md:flex-col md:gap-1 md:overflow-visible md:pb-0">
         {items.map((item) => {
           const isActive = item.key === activeKey;
 
@@ -29,7 +29,7 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
               key={item.key}
               href={item.href}
               className={cn(
-                "flex min-h-[38px] w-full cursor-pointer items-center justify-between rounded-full border-none bg-surface px-3 py-2.5 text-sm leading-snug text-foreground no-underline hover:bg-brand-third",
+                "flex min-h-9.5 w-auto shrink-0 items-center justify-between whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:whitespace-normal md:px-3 md:py-2.5",
                 isActive && "bg-brand-secondary text-background hover:bg-brand-secondary",
               )}
               aria-current={isActive ? "page" : undefined}
@@ -40,7 +40,7 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
                     src={item.iconSrc}
                     alt=""
                     className={cn(
-                      "size-[18px] shrink-0 object-contain",
+                      "size-4.5 shrink-0 object-contain",
                       isActive && "brightness-0 invert",
                     )}
                     width={18}
@@ -50,9 +50,17 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
                 ) : null}
                 <span className="text-left">{item.label}</span>
               </span>
-              <span className="text-sm leading-none" aria-hidden="true">
-                ›
-              </span>
+              <img
+                src="/icons/nav-arrow-right.svg"
+                alt=""
+                className={cn(
+                  "size-3 shrink-0 object-contain",
+                  isActive && "brightness-0 invert",
+                )}
+                width={12}
+                height={12}
+                aria-hidden
+              />
             </Link>
           );
         })}
