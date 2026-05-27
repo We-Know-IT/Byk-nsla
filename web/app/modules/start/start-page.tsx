@@ -1,6 +1,8 @@
 import { getEnabledModuleNavItems } from "../../shared/config/modules";
 import { siteConfig } from "../../shared/config/site.config";
 import { getEvents } from "../event/event-api";
+import FrivilligkraftCard from "../../frivilligkraft/components/frivilligkraft-card";
+import { getFrivilligkraftTeasers } from "../../frivilligkraft/frivilligkraft-api";
 import AppTopbar from "../../shared/ui/app-topbar";
 import EventCard from "../event/components/event-card";
 import MapView from "./components/map-view";
@@ -23,8 +25,26 @@ const formatStartEventDate = (value: string): string => {
   }).format(parsed);
 };
 
+const formatFrivilligkraftDate = (isoDate: string | null): string | null => {
+  if (!isoDate) {
+    return null;
+  }
+
+  const parsed = new Date(isoDate);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  return new Intl.DateTimeFormat("sv-SE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(parsed);
+};
+
 export default async function StartPage() {
-  const { events, error: eventError } = await getEvents();
+  const [{ events, error: eventError }, { teasers: frivilligkraftTeasers, error: frivilligkraftError }] =
+    await Promise.all([getEvents(), getFrivilligkraftTeasers()]);
 
   const eventCards =
     !eventError && events.length > 0
@@ -38,6 +58,7 @@ export default async function StartPage() {
           eventUrl: event.url,
         }))
       : cityCards;
+  const startTeasers = frivilligkraftTeasers.slice(0, 3);
 
   const navItems = await getEnabledModuleNavItems();
 
@@ -85,6 +106,38 @@ export default async function StartPage() {
                 <EventCard key={card.id} card={card} />
               ))}
             </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <SectionHeader title="Frivilligkraft nära dig" withAction />
+            <p className="m-0 text-sm leading-tight text-foreground-muted">{sectionDescription}</p>
+            {frivilligkraftError ? (
+              <div
+                className="max-w-130 rounded-[10px] border border-border bg-surface p-5.5 shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
+                role="status"
+              >
+                <p>{frivilligkraftError}</p>
+              </div>
+            ) : null}
+            {!frivilligkraftError && startTeasers.length === 0 ? (
+              <div
+                className="max-w-130 rounded-[10px] border border-border bg-surface p-5.5 shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
+                role="status"
+              >
+                <p>Inga frivilliguppdrag finns tillgangliga just nu.</p>
+              </div>
+            ) : null}
+            {!frivilligkraftError && startTeasers.length > 0 ? (
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+                {startTeasers.map((teaser) => (
+                  <FrivilligkraftCard
+                    key={teaser.id}
+                    teaser={teaser}
+                    dateLabel={formatFrivilligkraftDate(teaser.startDate)}
+                  />
+                ))}
+              </div>
+            ) : null}
           </div>
         </section>
       </div>

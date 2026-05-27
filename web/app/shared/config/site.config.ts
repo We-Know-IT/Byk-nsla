@@ -15,6 +15,13 @@ export type SiteNavItem = {
 export const siteNavigation = [
   { key: "start", label: "Start", path: "/", enabled: true, iconSrc: "/icons/home.svg" },
   { key: "event", label: "Event", path: "/event", enabled: true, iconSrc: "/icons/calendar.svg" },
+  {
+    key: "frivilligkraft",
+    label: "Frivilligkraft",
+    path: "/frivilligkraft",
+    enabled: true,
+    iconSrc: "/icons/healthcare.svg",
+  },
   { key: "utforska", label: "Utforska", path: "/utforska", enabled: true, iconSrc: "/icons/map.svg" },
   { key: "trafik", label: "Trafik", path: "/trafik", enabled: true, iconSrc: "/icons/train.svg" },
   { key: "vader", label: "Väder", path: "/vader", enabled: true, iconSrc: "/icons/sun-light.svg" },

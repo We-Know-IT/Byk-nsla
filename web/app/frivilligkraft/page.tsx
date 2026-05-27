@@ -1,0 +1,76 @@
+import { getEnabledModuleNavItems } from "../shared/config/modules";
+import { siteConfig } from "../shared/config/site.config";
+import AppTopbar from "../shared/ui/app-topbar";
+import SectionHeader from "../shared/ui/section-header";
+import SidebarNav from "../modules/start/components/sidebar-nav";
+import FrivilligkraftCard from "./components/frivilligkraft-card";
+import { getFrivilligkraftTeasers } from "./frivilligkraft-api";
+
+const formatDate = (isoDate: string | null): string | null => {
+  if (!isoDate) {
+    return null;
+  }
+
+  const parsed = new Date(isoDate);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  return new Intl.DateTimeFormat("sv-SE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(parsed);
+};
+
+export default async function FrivilligkraftRoutePage() {
+  const [{ teasers, error }, navItems] = await Promise.all([
+    getFrivilligkraftTeasers(),
+    getEnabledModuleNavItems(),
+  ]);
+
+  return (
+    <main className="min-h-screen bg-background">
+      <AppTopbar />
+
+      <div className="flex min-h-[calc(100vh-66px)] flex-col md:flex-row">
+        <SidebarNav items={navItems} activeKey="frivilligkraft" />
+
+        <section className="flex flex-1 flex-col gap-4 px-4 pb-8 pt-4" aria-label="Frivilligkraftsida">
+          <div className="flex flex-col gap-2">
+            <SectionHeader title={`Frivilligkraft i ${siteConfig.areaName}`} as="h1" />
+            <p className="m-0 text-sm leading-snug text-foreground-muted">
+              Hitta aktuella volontaruppdrag i ditt naraomrade.
+            </p>
+          </div>
+
+          {error ? (
+            <div
+              className="max-w-130 rounded-[10px] border border-border bg-surface p-5.5 shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
+              role="status"
+            >
+              <p>{error}</p>
+            </div>
+          ) : null}
+
+          {!error && teasers.length === 0 ? (
+            <div
+              className="max-w-130 rounded-[10px] border border-border bg-surface p-5.5 shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
+              role="status"
+            >
+              <p>Inga frivilliguppdrag finns tillgangliga just nu.</p>
+            </div>
+          ) : null}
+
+          {!error && teasers.length > 0 ? (
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {teasers.map((teaser) => (
+                <FrivilligkraftCard key={teaser.id} teaser={teaser} dateLabel={formatDate(teaser.startDate)} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      </div>
+    </main>
+  );
+}
