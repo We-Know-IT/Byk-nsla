@@ -73,13 +73,13 @@ export function siteThemeCssVars(theme: SiteTheme): Record<string, string> {
 
 export const siteConfig = {
   /** Shown in the top bar, document title, and other UI */
-  name: "Bykänsla",
+  name: "Linero",
 
   htmlLang: "sv",
 
   metadata: {
-    title: "Bykänsla",
-    description: "Din by",
+    title: "Linero",
+    description: "Din stadsdel i Lund",
   },
 
   brand: {
@@ -87,7 +87,7 @@ export const siteConfig = {
      * Shown in the square mark when `markImageSrc` is not set.
      * Use one character for the default layout, or a short abbreviation.
      */
-    markLetter: "B",
+    markLetter: "L",
     /**
      * Optional image for the square mark (path under `public/`).
      * When set, this replaces the letter mark.
@@ -103,23 +103,30 @@ export const siteConfig = {
   /**
    * Local area name used in headings (e.g. "Vad händer i …").
    */
-  areaName: "Min lilla by",
+  areaName: "Linero",
 
   /**
    * Geography configuration for the local area.
    * Used to filter events and items to this specific area.
    */
   geography: {
-    // Central Stockholm — adjust center/bounds when targeting a specific stadsdel
-    center: [18.0686, 59.3293] as [number, number], // [longitude, latitude]
-    maxDistanceKm: 2,
+    // Linero, Lund — center near Linero torg / stadsdelen
+    center: [13.2422, 55.6944] as [number, number], // [longitude, latitude]
+    maxDistanceKm: 4,
     bounds: {
-      minLng: 18.02,
-      maxLng: 18.12,
-      minLat: 59.3,
-      maxLat: 59.36,
+      minLng: 13.21,
+      maxLng: 13.27,
+      minLat: 55.68,
+      maxLat: 55.71,
     },
-    keywords: ["minby", "östra byn", "vår by", "mina byn", "lilla byn"],
+    keywords: [
+      "linero",
+      "linero torg",
+      "lund",
+      "östra lund",
+      "vikingaskolan",
+      "gastelyckan",
+    ],
   },
 
   /** Core UI colors — applied in root layout as CSS variables. */
