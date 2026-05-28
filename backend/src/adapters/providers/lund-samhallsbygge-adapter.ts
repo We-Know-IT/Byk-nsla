@@ -22,9 +22,27 @@ type ArcGisFeatureCollection = {
   features?: ArcGisFeature[];
 };
 
-const toGeoJsonQueryUrl = (baseUrl: string) => {
+const buildWhereClause = (
+  options: SamhallsbyggeQueryOptions | undefined,
+  searchFields: string[],
+): string => {
+  const area = options?.area?.trim();
+  if (!area) {
+    return "1=1";
+  }
+
+  const escaped = area.replaceAll("'", "''").toUpperCase();
+  const predicates = searchFields.map((field) => `UPPER(${field}) LIKE '%${escaped}%'`);
+  return predicates.join(" OR ");
+};
+
+const toGeoJsonQueryUrl = (
+  baseUrl: string,
+  options: SamhallsbyggeQueryOptions | undefined,
+  searchFields: string[],
+) => {
   const params = new URLSearchParams();
-  params.set("where", "1=1");
+  params.set("where", buildWhereClause(options, searchFields));
   params.set("outFields", "*");
   params.set("returnGeometry", "true");
   params.set("f", "geojson");
@@ -133,11 +151,12 @@ const mapDetaljplanFeature = (feature: ArcGisFeature): ExternalSamhallsbyggeItem
 
 async function fetchFeatureCollection(
   url: string,
+  searchFields: string[],
   options?: SamhallsbyggeQueryOptions,
 ): Promise<ArcGisFeature[]> {
-  // Future seam: options can be mapped to upstream query params once API spec is confirmed.
-  void options;
-  const response = await fetch(toGeoJsonQueryUrl(url), { cache: "no-store" });
+  const response = await fetch(toGeoJsonQueryUrl(url, options, searchFields), {
+    cache: "no-store",
+  });
   if (!response.ok) {
     const message = await response.text();
     throw new Error(`Samhällsbygge-källa svarade med ${response.status}: ${message.slice(0, 200)}`);
@@ -149,9 +168,9 @@ async function fetchFeatureCollection(
 export class LundSamhallsbyggeAdapter implements SamhallsbyggeAdapter {
   async getItems(options?: SamhallsbyggeQueryOptions): Promise<ExternalSamhallsbyggeItem[]> {
     const [kungorelseFeatures, grannhorandeFeatures, detaljplanFeatures] = await Promise.all([
-      fetchFeatureCollection(BYGGLOV_KUNGORELSE_URL, options),
-      fetchFeatureCollection(GRANNHORANDE_URL, options),
-      fetchFeatureCollection(DETALJPLAN_URL, options),
+      fetchFeatureCollection(BYGGLOV_KUNGORELSE_URL, ["Arendemening", "Fastighet", "Anteckning"], options),
+      fetchFeatureCollection(GRANNHORANDE_URL, ["Arendemening", "Fastighet", "Anteckning"], options),
+      fetchFeatureCollection(DETALJPLAN_URL, ["RUBRIK", "POPULARNAMN"], options),
     ]);
 
     const bygglovKungorelser = kungorelseFeatures

@@ -9,7 +9,7 @@ import { getSamhallsbyggeItems } from "./samhallsbygge-api";
 
 export default async function SamhallsbyggePage() {
   const [{ items, error }, navItems] = await Promise.all([
-    getSamhallsbyggeItems(),
+    getSamhallsbyggeItems({ area: siteConfig.areaName }),
     getEnabledModuleNavItems(),
   ]);
 
@@ -24,7 +24,7 @@ export default async function SamhallsbyggePage() {
           <div className="flex flex-col gap-2">
             <SectionHeader title={`Samhällsbyggande i ${siteConfig.areaName}`} as="h1" />
             <p className="m-0 text-sm leading-snug text-foreground-muted">
-              Visar aktuella ärenden från Lunds geoportal. Vi lägger senare till Linero-specifikt API-anrop.
+              Visar aktuella ärenden från Lunds geoportal filtrerat på området {siteConfig.areaName}.
             </p>
           </div>
 

@@ -49,7 +49,11 @@ export default async function StartPage() {
     { events, error: eventError },
     { teasers: frivilligkraftTeasers, error: frivilligkraftError },
     { items: samhallsbyggeItems, error: samhallsbyggeError },
-  ] = await Promise.all([getEvents(), getFrivilligkraftTeasers(), getSamhallsbyggeItems()]);
+  ] = await Promise.all([
+    getEvents(),
+    getFrivilligkraftTeasers(),
+    getSamhallsbyggeItems({ area: siteConfig.areaName }),
+  ]);
 
   const eventCards = eventError
     ? cityCards
