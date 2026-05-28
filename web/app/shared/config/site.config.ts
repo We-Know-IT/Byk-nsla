@@ -22,6 +22,13 @@ export const siteNavigation = [
     enabled: true,
     iconSrc: "/icons/healthcare.svg",
   },
+  {
+    key: "samhallsbygge",
+    label: "Samhällsbyggande",
+    path: "/samhallsbygge",
+    enabled: true,
+    iconSrc: "/icons/hammer.svg",
+  },
   { key: "utforska", label: "Utforska", path: "/utforska", enabled: true, iconSrc: "/icons/map.svg" },
   { key: "trafik", label: "Trafik", path: "/trafik", enabled: true, iconSrc: "/icons/train.svg" },
   { key: "vader", label: "Väder", path: "/vader", enabled: true, iconSrc: "/icons/sun-light.svg" },

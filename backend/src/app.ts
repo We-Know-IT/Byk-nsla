@@ -3,6 +3,7 @@ import express from "express";
 import { eventsRouter } from "./routes/events.js";
 import { frivilligkraftRouter } from "./routes/frivilligkraft.js";
 import { healthRouter } from "./routes/health.js";
+import { samhallsbyggeRouter } from "./routes/samhallsbygge.js";
 import { siteThemesRouter } from "./routes/site-themes.js";
 import { siteNavigationRouter } from "./routes/site-navigation.js";
 import { weatherRouter } from "./routes/weather.js";
@@ -17,6 +18,7 @@ export const createApp = () => {
   app.use("/health", healthRouter);
   app.use("/api/events", eventsRouter);
   app.use("/api/frivilligkraft", frivilligkraftRouter);
+  app.use("/api/samhallsbygge", samhallsbyggeRouter);
   app.use("/api/site-themes", siteThemesRouter);
   app.use("/api/site-navigation", siteNavigationRouter);
   app.use("/api/weather", weatherRouter);
