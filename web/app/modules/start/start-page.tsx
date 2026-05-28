@@ -46,18 +46,17 @@ export default async function StartPage() {
   const [{ events, error: eventError }, { teasers: frivilligkraftTeasers, error: frivilligkraftError }] =
     await Promise.all([getEvents(), getFrivilligkraftTeasers()]);
 
-  const eventCards =
-    !eventError && events.length > 0
-      ? events.slice(0, 6).map((event) => ({
-          id: event.id,
-          title: event.title,
-          date: formatStartEventDate(event.date),
-          text: event.description,
-          cta: event.url ? "Mer info" : "Knapp",
-          imageSrc: event.imageUrl,
-          eventUrl: event.url,
-        }))
-      : cityCards;
+  const eventCards = eventError
+    ? cityCards
+    : events.slice(0, 6).map((event) => ({
+        id: event.id,
+        title: event.title,
+        date: formatStartEventDate(event.date),
+        text: event.description,
+        cta: event.url ? "Mer info" : "Knapp",
+        imageSrc: event.imageUrl,
+        eventUrl: event.url,
+      }));
   const startTeasers = frivilligkraftTeasers.slice(0, 3);
 
   const navItems = await getEnabledModuleNavItems();
@@ -124,7 +123,7 @@ export default async function StartPage() {
                 className="max-w-130 rounded-[10px] border border-border bg-surface p-5.5 shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
                 role="status"
               >
-                <p>Inga frivilliguppdrag finns tillgangliga just nu.</p>
+                <p>Inga frivilliguppdrag finns tillgängliga just nu.</p>
               </div>
             ) : null}
             {!frivilligkraftError && startTeasers.length > 0 ? (

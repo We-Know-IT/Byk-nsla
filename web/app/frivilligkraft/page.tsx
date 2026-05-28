@@ -40,7 +40,7 @@ export default async function FrivilligkraftRoutePage() {
           <div className="flex flex-col gap-2">
             <SectionHeader title={`Frivilligkraft i ${siteConfig.areaName}`} as="h1" />
             <p className="m-0 text-sm leading-snug text-foreground-muted">
-              Hitta aktuella volontaruppdrag i ditt naraomrade.
+              Hitta aktuella volontäruppdrag i ditt närområde.
             </p>
           </div>
 
@@ -58,7 +58,7 @@ export default async function FrivilligkraftRoutePage() {
               className="max-w-130 rounded-[10px] border border-border bg-surface p-5.5 shadow-[0_1px_2px_rgb(0_0_0/0.07)] [&_p]:m-0 [&_p]:text-[15px] [&_p]:leading-snug [&_p]:text-foreground-muted"
               role="status"
             >
-              <p>Inga frivilliguppdrag finns tillgangliga just nu.</p>
+              <p>Inga frivilliguppdrag finns tillgängliga just nu.</p>
             </div>
           ) : null}
 
