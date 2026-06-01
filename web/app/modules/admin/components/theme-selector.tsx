@@ -135,37 +135,41 @@ export default function ThemeSelector() {
             />
           </button>
 
-          {isOpen ? (
-            <div className="mt-3 space-y-2">
-              {themes.map((theme) => {
-                const isSelected = theme.key === selectedKey;
+          <div
+            aria-hidden={!isOpen}
+            className={cn(
+              "overflow-hidden transition-all duration-200 ease-out",
+              isOpen ? "max-h-96 opacity-100 pointer-events-auto space-y-2" : "max-h-0 opacity-0 pointer-events-none"
+            )}
+          >
+            {themes.map((theme) => {
+              const isSelected = theme.key === selectedKey;
 
-                return (
-                  <button
-                    key={theme.key}
-                    type="button"
-                    onClick={() => handleChange(theme.key)}
-                    className={cn(
-                      "flex w-full items-center justify-between rounded-xl border px-3 py-2 text-left transition-colors hover:bg-brand-third/15",
-                      isSelected ? "border-brand-secondary bg-brand-third/10" : "border-border bg-background",
-                    )}
-                  >
-                    <span className="min-w-0 truncate text-sm font-medium text-foreground">{theme.label}</span>
-                    <span className="ml-3 flex shrink-0 items-center gap-1.5" aria-hidden="true">
-                      <span
-                        className="size-4 rounded-full border border-border"
-                        style={{ backgroundColor: theme.colors.brandSecondary }}
-                      />
-                      <span
-                        className="size-4 rounded-full border border-border"
-                        style={{ backgroundColor: theme.colors.brandThird }}
-                      />
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          ) : null}
+              return (
+                <button
+                  key={theme.key}
+                  type="button"
+                  onClick={() => handleChange(theme.key)}
+                  className={cn(
+                    "mt-3 flex w-full items-center justify-between rounded-xl border px-3 py-2 text-left transition-colors hover:bg-brand-third/15",
+                    isSelected ? "border-brand-secondary bg-brand-third/10" : "border-border bg-background",
+                  )}
+                >
+                  <span className="min-w-0 truncate text-sm font-medium text-foreground">{theme.label}</span>
+                  <span className="ml-3 flex shrink-0 items-center gap-1.5" aria-hidden="true">
+                    <span
+                      className="size-4 rounded-full border border-border"
+                      style={{ backgroundColor: theme.colors.brandSecondary }}
+                    />
+                    <span
+                      className="size-4 rounded-full border border-border"
+                      style={{ backgroundColor: theme.colors.brandThird }}
+                    />
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
