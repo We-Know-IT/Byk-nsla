@@ -7,6 +7,8 @@ import SectionHeader from "../../shared/ui/section-header";
 import SidebarNav from "./components/sidebar-nav";
 import SpotlightCard from "./components/spotlight-card";
 import { cityCards, sectionDescription, spotlightCards } from "./model/data";
+import Image from "next/image";
+import BackgroundImage from "./components/background-image";
 
 const formatStartEventDate = (value: string): string => {
   const parsed = new Date(value);
@@ -28,14 +30,14 @@ export default async function StartPage() {
   const eventCards =
     !eventError && events.length > 0
       ? events.slice(0, 6).map((event) => ({
-          id: event.id,
-          title: event.title,
-          date: formatStartEventDate(event.date),
-          text: event.description,
-          cta: event.url ? "Mer info" : "Knapp",
-          imageSrc: event.imageUrl,
-          eventUrl: event.url,
-        }))
+        id: event.id,
+        title: event.title,
+        date: formatStartEventDate(event.date),
+        text: event.description,
+        cta: event.url ? "Mer info" : "Knapp",
+        imageSrc: event.imageUrl,
+        eventUrl: event.url,
+      }))
       : cityCards;
 
   const navItems = await getEnabledModuleNavItems();
@@ -49,6 +51,14 @@ export default async function StartPage() {
           className="flex flex-1 flex-col gap-5.5 px-4 pb-8 pt-4"
           aria-label="Startsida"
         >
+          <div className="relative flex flex-col justify-end overflow-hidden rounded-2xl px-4 pb-4 w-full h-50">
+           <BackgroundImage />
+            <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/20"></div>
+            <h3 className="z-2 mt-3 text-3xl font-bold text-white">{siteConfig.areaName}</h3>
+            <div className="z-2 gap-y-1 overflow-hidden text-sm text-gray-300 w-xs md:w-md">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+          </div>
+
+
           <div className="flex flex-col gap-2">
             <SectionHeader title="Just nu" as="h1" />
             <p className="m-0 text-sm leading-tight text-foreground-muted">{sectionDescription}</p>
@@ -84,7 +94,7 @@ export default async function StartPage() {
             </div>
           </div>
         </section>
-      </div>
-    </main>
+      </div >
+    </main >
   );
 }
