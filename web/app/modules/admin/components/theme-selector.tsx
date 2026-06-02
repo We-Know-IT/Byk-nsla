@@ -96,7 +96,7 @@ export default function ThemeSelector() {
 
   return (
     <div className="w-full">
-      <div className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
+      <div className="rounded-2xl border border-border bg-surface p-4 shadow-sm mb-4">
         <div className="mb-2 flex flex-col gap-1">
           <h3 className="text-base font-semibold">Färgpalett</h3>
           <p className="text-sm text-foreground-muted">
