@@ -2,7 +2,6 @@ import type { ModuleKey } from "../config/modules";
 import { getEnabledModuleNavItems } from "../config/modules";
 import { siteConfig } from "../config/site.config";
 import SidebarNav from "../../modules/start/components/sidebar-nav";
-import AppTopbar from "./app-topbar";
 
 type UnderConstructionPageProps = {
   activeKey: ModuleKey;
@@ -16,7 +15,6 @@ export default async function UnderConstructionPage({
   const navItems = await getEnabledModuleNavItems();
   return (
     <main className="min-h-screen bg-background">
-      <AppTopbar />
 
       <div className="flex md:min-h-[calc(100vh-66px)] flex-col md:flex-row">
         <SidebarNav items={navItems} activeKey={activeKey} />

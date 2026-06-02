@@ -1,7 +1,6 @@
 import { getEnabledModuleNavItems } from "../../shared/config/modules";
 import { siteConfig } from "../../shared/config/site.config";
 import { getEvents } from "../event/event-api";
-import AppTopbar from "../../shared/ui/app-topbar";
 import EventCard from "../event/components/event-card";
 import MapView from "./components/map-view";
 import SectionHeader from "../../shared/ui/section-header";
@@ -43,8 +42,6 @@ export default async function StartPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <AppTopbar />
-
       <div className="flex min-h-[calc(100vh-66px)] flex-col md:flex-row">
         <SidebarNav items={navItems} activeKey="start" />
 
