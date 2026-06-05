@@ -70,6 +70,8 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
         />
       )}
 
+
+
       <aside
         className={cn(
           // Mobile
@@ -77,7 +79,7 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
           isOpen ? "translate-x-0" : "-translate-x-full",
 
           // Desktop
-          "md:sticky md:top-0 md:h-screen md:translate-x-0 md:transition-all md:duration-200",
+          "md:sticky md:top-0 md:h-screen md:translate-x-0 md:transition-all md:duration-200 md:overflow-x-hidden",
           isOpen
             ? "md:w-55 md:min-w-55 md:basis-55"
             : "md:w-18 md:min-w-18 md:basis-18"
@@ -86,33 +88,35 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
         ref={sidebarRef}
       >
         <nav className="flex h-full flex-col gap-1.5 overflow-y-auto pb-0 md:gap-6">
+
           <div className="relative flex w-full flex-row items-center justify-between">
             <div
               className={cn(
-                "grid min-h-9.5 w-auto shrink-0 grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap rounded-full border border-border bg-surface text-sm leading-snug text-foreground no-underline md:w-full md:shrink md:whitespace-normal",
-                !isOpen && "w-9.5 grid-cols-1 justify-items-center md:w-9.5"
+                "flex min-h-9.5 w-full shrink-0 items-center whitespace-nowrap rounded-full border border-border bg-surface text-sm leading-snug text-foreground no-underline transition-all duration-200",
+
+                isOpen ? "px-4 py-2 md:px-3" : "px-2 py-2 md:px-[6px]"
               )}
             >
-              <span className={cn("flex min-w-0 items-center gap-2 justify-self-start", !isOpen && "justify-self-center gap-0")}>
-                <img
-                  src="/icons/Frame.svg"
-                  alt=""
-                  className={cn(
-                    "m-0.5 rounded-full bg-brand-secondary object-contain p-1",
-                    !isOpen && "m-0"
-                  )}
-                  width={28}
-                  height={28}
-                  aria-hidden
-                />
-              </span>
-              <span className={cn("my-2 justify-self-center text-center", !isOpen && "hidden")}>Förnamn</span>
+              <img
+                src="/icons/Frame.svg"
+                alt=""
+                className={cn(
+                  "rounded-full bg-brand-secondary object-contain p-1 shrink-0"
+                )}
+                width={28}
+                height={28}
+                aria-hidden
+              />
+              <span className={cn(
+                "text-center flex-1 transition-all duration-200 ease-in-out overflow-hidden",
+                isOpen ? "max-w-40 opacity-100 mx-2" : "max-w-0 opacity-0 mx-0"
+              )}>Förnamn</span>
               <img
                 src="/icons/nav-arrow-right.svg"
                 alt=""
                 className={cn(
-                  "mr-2.5 size-3 shrink-0 justify-self-end object-contain",
-                  !isOpen && "hidden"
+                  "size-3 shrink-0 object-contain transition-all duration-200 ease-in-out overflow-hidden",
+                  isOpen ? "max-w-4 opacity-100" : "max-w-0 opacity-0"
                 )}
                 width={12}
                 height={12}
@@ -120,24 +124,6 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
               />
             </div>
           </div>
-
-          <button
-            className={cn(
-              "cursor-pointer rounded-md bg-surface shadow-sm flex shrink-0 items-center justify-center z-5",
-              onMobile
-                ? `absolute top-3.5 left-0 ${isOpen ? "translate-x-52" : "translate-x-68"}`
-                : "absolute right-0 translate-x-4 translate-y-1"
-            )}
-            onClick={() => setIsOpen((open) => !open)}
-            aria-label="Toggle navigation menu"
-            aria-expanded={isOpen}
-          >
-            <img
-              src={isOpen ? "/icons/arrow-left-tag.svg" : "/icons/arrow-right-tag.svg"}
-              alt="MenuFold"
-              className="size-7 object-fill transition-transform hover:scale-110"
-            />
-          </button>
 
           {items.map((item) => {
             const isActive = item.key === activeKey;
@@ -147,33 +133,36 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
                 key={item.key}
                 href={item.href}
                 className={cn(
-                  "flex min-h-9.5 w-auto shrink-0 items-center justify-between whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:whitespace-normal md:px-3 md:py-2.5",
+                  "flex min-h-9.5 w-auto shrink-0 items-center whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:py-2.5 transition-all duration-200",
                   isActive && "bg-brand-secondary text-background hover:bg-brand-secondary",
-                  !isOpen && "justify-center md:px-2"
+                  isOpen ? "md:px-3" : "md:px-[11px]"
                 )}
                 aria-current={isActive ? "page" : undefined}
               >
-                <span className="flex min-w-0 items-center gap-2">
-                  {item.iconSrc ? (
-                    <img
-                      src={item.iconSrc}
-                      alt=""
-                      className={cn(
-                        "size-4.5 object-contain shrink-0",
-                        isActive && "brightness-0 invert"
-                      )}
-                      aria-hidden
-                    />
-                  ) : null}
-                  <span className={cn("text-left", !isOpen && "hidden")}>{item.label}</span>
-                </span>
+
+                {item.iconSrc ? (
+                  <img
+                    src={item.iconSrc}
+                    alt=""
+                    className={cn(
+                      "size-4.5 object-contain shrink-0",
+                      isActive && "brightness-0 invert"
+                    )}
+                    aria-hidden
+                  />
+                ) : null}
+                <span className={cn(
+                  "text-left transition-all duration-200 ease-in-out overflow-hidden",
+                  isOpen ? "max-w-40 opacity-100 ml-2" : "max-w-0 opacity-0 ml-0"
+
+                )}>{item.label}</span>
+
                 <img
                   src="/icons/nav-arrow-right.svg"
                   alt=""
                   className={cn(
-                    "size-3 shrink-0 object-contain",
-                    isActive && "brightness-0 invert",
-                    !isOpen && "hidden"
+                    "size-3 shrink-0 object-contain transition-all duration-200 ease-in-out overflow-hidden",
+                    isOpen ? "max-w-4 opacity-100 ml-auto" : "max-w-0 opacity-0 ml-0"
                   )}
                   width={12}
                   height={12}
@@ -186,27 +175,28 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
           <Link
             href={"/"}
             className={cn(
-              "mt-auto flex min-h-9.5 w-auto shrink-0 items-center justify-between whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:whitespace-normal md:px-3 md:py-2.5",
-              !isOpen && "justify-center md:px-2"
+              "mt-auto flex min-h-9.5 w-auto shrink-0 items-center whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:py-2.5 transition-all duration-200",
+              isOpen ? "md:px-3" : "md:px-[11px]"
             )}
           >
-            <span className="flex min-w-0 items-center gap-2">
-              <img
-                src={"/icons/question-mark.svg"}
-                alt=""
-                className="size-4.5 shrink-0 object-contain"
-                width={18}
-                height={18}
-                aria-hidden
-              />
-              <span className={cn("text-left", !isOpen && "hidden")}>{"Hjälp"}</span>
-            </span>
+            <img
+              src={"/icons/question-mark.svg"}
+              alt=""
+              className="size-4.5 shrink-0 object-contain"
+              width={18}
+              height={18}
+              aria-hidden
+            />
+            <span className={cn(
+              "text-left transition-all duration-200 ease-in-out overflow-hidden",
+              isOpen ? "max-w-40 opacity-100 ml-2" : "max-w-0 opacity-0 ml-0"
+            )}>{"Hjälp"}</span>
             <img
               src="/icons/nav-arrow-right.svg"
               alt=""
               className={cn(
-                "size-3 shrink-0 object-contain",
-                !isOpen && "hidden"
+                "size-3 shrink-0 object-contain transition-all duration-200 ease-in-out overflow-hidden",
+                isOpen ? "max-w-4 opacity-100 ml-auto" : "max-w-0 opacity-0 ml-0"
               )}
               width={12}
               height={12}
@@ -215,6 +205,28 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
           </Link>
         </nav>
       </aside>
+      <button
+        className={cn(
+          "cursor-pointer rounded-r-xl bg-surface shadow-sm shadow-black/30 flex items-center justify-center z-39",
+          "h-16 w-8",
+          //Mobile
+          "fixed top-20 left-0 transition-transform duration-300 ease-in-out",
+
+          isOpen ? "translate-x-64 md:translate-none" : "translate-x-0",
+
+          //Desktop
+          "md:static md:top-auto"
+        )}
+        onClick={() => setIsOpen((open) => !open)}
+        aria-label="Toggle navigation menu"
+        aria-expanded={isOpen}
+      >
+        <img
+          src={"/icons/nav-arrow-left.svg"}
+          alt="MenuFold"
+          className={'w-6 h-6 object-fill transition-transform hover:scale-110 ' + (!isOpen ? "rotate-180" : "")}
+        />
+      </button>
     </>
   );
 }
