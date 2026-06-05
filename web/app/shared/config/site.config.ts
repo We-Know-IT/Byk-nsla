@@ -15,11 +15,14 @@ export type SiteNavItem = {
 export const siteNavigation = [
   { key: "start", label: "Start", path: "/", enabled: true, iconSrc: "/icons/home.svg" },
   { key: "pagang", label: "På gång", path: "/event", enabled: true, iconSrc: "/icons/calendar.svg" },
-  { key: "hjalptill", label: "Hjälp till", path: "/frivilligkraft", enabled: true, iconSrc: "/icons/heart.svg" },
-  { key: "bygg", label: "Bygg & utveckling", path: "/samhallsbygge", enabled: true, iconSrc: "/icons/hammer.svg" },
+  { key: "hjalptill", label: "Hjälp till", path: "/hjalptill", enabled: true, iconSrc: "/icons/heart.svg" },
+  { key: "bygg", label: "Bygg & utveckling", path: "/bygg", enabled: true, iconSrc: "/icons/hammer.svg" },
   { key: "utforska", label: "Utforska", path: "/utforska", enabled: true, iconSrc: "/icons/map.svg" },
   { key: "trafik", label: "Trafik", path: "/trafik", enabled: true, iconSrc: "/icons/train.svg" },
   { key: "vader", label: "Väder", path: "/vader", enabled: true, iconSrc: "/icons/sun-light.svg" },
+
+
+
 ] as const satisfies readonly SiteNavItem[];
 
 export type ModuleKey = (typeof siteNavigation)[number]["key"];
@@ -75,13 +78,13 @@ export function siteThemeCssVars(theme: SiteTheme): Record<string, string> {
 
 export const siteConfig = {
   /** Shown in the top bar, document title, and other UI */
-  name: "Linero",
+  name: "Bykänsla",
 
   htmlLang: "sv",
 
   metadata: {
-    title: "Linero",
-    description: "Din stadsdel i Lund",
+    title: "Bykänsla",
+    description: "Din by",
   },
 
   brand: {
@@ -89,7 +92,7 @@ export const siteConfig = {
      * Shown in the square mark when `markImageSrc` is not set.
      * Use one character for the default layout, or a short abbreviation.
      */
-    markLetter: "L",
+    markLetter: "B",
     /**
      * Optional image for the square mark (path under `public/`).
      * When set, this replaces the letter mark.
@@ -105,30 +108,23 @@ export const siteConfig = {
   /**
    * Local area name used in headings (e.g. "Vad händer i …").
    */
-  areaName: "Linero",
+  areaName: "Min lilla by",
 
   /**
    * Geography configuration for the local area.
    * Used to filter events and items to this specific area.
    */
   geography: {
-    // Linero, Lund — center near Linero torg / stadsdelen
-    center: [13.2422, 55.6944] as [number, number], // [longitude, latitude]
-    maxDistanceKm: 4,
+    // Central Stockholm — adjust center/bounds when targeting a specific stadsdel
+    center: [18.0686, 59.3293] as [number, number], // [longitude, latitude]
+    maxDistanceKm: 2,
     bounds: {
-      minLng: 13.21,
-      maxLng: 13.27,
-      minLat: 55.68,
-      maxLat: 55.71,
+      minLng: 18.02,
+      maxLng: 18.12,
+      minLat: 59.3,
+      maxLat: 59.36,
     },
-    keywords: [
-      "linero",
-      "linero torg",
-      "lund",
-      "östra lund",
-      "vikingaskolan",
-      "gastelyckan",
-    ],
+    keywords: ["minby", "östra byn", "vår by", "mina byn", "lilla byn"],
   },
 
   /** Core UI colors — applied in root layout as CSS variables. */
