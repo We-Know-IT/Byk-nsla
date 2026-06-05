@@ -1,4 +1,4 @@
-import SidebarNav, { type SidebarNavItem } from "../../../modules/start/components/sidebar-nav";
+import SidebarNav, { type SidebarNavItem } from "../../shared/components/sidebar-nav";
 
 type AdminSectionPageProps = {
   activeKey: string;

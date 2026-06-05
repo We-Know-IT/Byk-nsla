@@ -1,4 +1,4 @@
-import type { SidebarNavItem } from "../../../modules/start/components/sidebar-nav";
+import type { SidebarNavItem } from "../../shared/components/sidebar-nav";
 
 export const adminNavItems = [
   { key: "dashboard", label: "Dashboard", href: "/admin", iconSrc: "/icons/home.svg" },

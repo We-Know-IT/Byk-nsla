@@ -4,11 +4,11 @@ import { getEvents } from "../event/event-api";
 import EventCard from "../event/components/event-card";
 import MapView from "./components/map-view";
 import SectionHeader from "../../shared/ui/section-header";
-import SidebarNav from "./components/sidebar-nav";
+import SidebarNav from "../shared/components/sidebar-nav";
 import SpotlightCard from "./components/spotlight-card";
 import { cityCards, sectionDescription, spotlightCards } from "./model/data";
 import Image from "next/image";
-import BackgroundImage from "./components/background-image";
+import BackgroundImage from "../shared/components/background-image";
 import { notFound } from "next/navigation";
 import { checkModuleEnabled } from "../../api/site-navigation/routeGuard";
 

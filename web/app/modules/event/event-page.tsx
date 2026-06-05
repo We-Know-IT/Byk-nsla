@@ -1,6 +1,6 @@
 import { getEnabledModuleNavItems } from "../../shared/config/modules";
 import { siteConfig } from "../../shared/config/site.config";
-import SidebarNav from "../start/components/sidebar-nav";
+import SidebarNav from "../shared/components/sidebar-nav";
 import EventListingClient from "./components/event-listing-client";
 import type { EventGridCardData } from "./model/data";
 

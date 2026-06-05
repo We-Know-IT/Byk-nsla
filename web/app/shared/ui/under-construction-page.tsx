@@ -1,7 +1,7 @@
 import type { ModuleKey } from "../config/modules";
 import { getEnabledModuleNavItems } from "../config/modules";
 import { siteConfig } from "../config/site.config";
-import SidebarNav from "../../modules/start/components/sidebar-nav";
+import SidebarNav from "../../modules/shared/components/sidebar-nav";
 
 import { notFound } from "next/navigation";
 import { checkModuleEnabled } from "../../api/site-navigation/routeGuard";
