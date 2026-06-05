@@ -19,10 +19,10 @@ export default async function EventPage({ cards, listError }: EventPageProps) {
 
         <section
           className="flex flex-1 flex-col gap-2.5 px-4 pb-8 pt-4"
-          aria-label="Eventsida"
+          aria-label="På gång i {siteConfig.areaName}"
         >
           <h1 className="m-0 text-[34px] font-semibold leading-tight text-foreground">
-            Event i {siteConfig.areaName}
+            På gång i {siteConfig.areaName}
           </h1>
 
           {listError ? (
