@@ -21,18 +21,18 @@ export default function Hero(
                 <BackgroundImage />
             </div>
 
-            <div className="relative z-10 flex flex-col items-start gap-2 px-2 pt-16 pb-4 md:px-4 md:pb-8">
+            <div className="relative z-10 flex flex-col items-start gap-2 px-2 pt-16 pb-4 md:px-4">
                 {greeting && <Greeting />}
                 <h1 className="text-5xl font-bold text-surface">{title || siteConfig.areaName}</h1>
                 {description && (
-                    <div className="gap-y-1 overflow-hidden text-surface text-sm w-xs md:w-md">
+                    <div className="gap-y-1 max-w-100 overflow-hidden text-surface text-sm w-xs md:w-md">
                         {description}
                     </div>
                 )}
             </div>
 
             {infoBar && (
-                <div className="relative z-10 flex mb-0 md:mb-4 md:px-4">
+                <div className="relative z-10 flex my-0 md:my-4 md:px-4">
                     <InfoBar />
                 </div>
             )}
