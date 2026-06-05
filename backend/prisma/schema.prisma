@@ -21,7 +21,7 @@ model SiteThemeSelection {
 
 model SiteNavigationPage {
   key       String   @id
-  display   Boolean  @default(true)
+  enabled   Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

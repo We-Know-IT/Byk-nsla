@@ -9,6 +9,8 @@ import SpotlightCard from "./components/spotlight-card";
 import { cityCards, sectionDescription, spotlightCards } from "./model/data";
 import Image from "next/image";
 import BackgroundImage from "./components/background-image";
+import { notFound } from "next/navigation";
+import { checkModuleEnabled } from "../../api/site-navigation/routeGuard";
 
 const formatStartEventDate = (value: string): string => {
   const parsed = new Date(value);
@@ -25,6 +27,11 @@ const formatStartEventDate = (value: string): string => {
 };
 
 export default async function StartPage() {
+  const isEnabled = await checkModuleEnabled("start");
+    if (!isEnabled) {
+      notFound();
+    }
+
   const { events, error: eventError } = await getEvents();
 
   const eventCards =

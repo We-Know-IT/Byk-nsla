@@ -101,6 +101,8 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
                     "m-0.5 rounded-full bg-brand-secondary object-contain p-1",
                     !isOpen && "m-0"
                   )}
+                  width={28}
+                  height={28}
                   aria-hidden
                 />
               </span>
