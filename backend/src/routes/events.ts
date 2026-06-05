@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { getEventsAdapter } from "../adapters/registry/events-registry.js";
+import {
+  getEventsAdapter,
+  getEventsProviderName,
+} from "../adapters/registry/events-registry.js";
 import { EventsService } from "../modules/events/events-service.js";
 import { sendSuccess } from "../shared/http.js";
 
@@ -11,7 +14,7 @@ eventsRouter.get("/", async (_req, res, next) => {
     const events = await service.listEvents();
 
     return sendSuccess(res, events, {
-      provider: "mock",
+      provider: getEventsProviderName(),
       adapterBoundary: true,
     });
   } catch (error) {

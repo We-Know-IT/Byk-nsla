@@ -4,8 +4,7 @@ import { eventGridCards } from "../modules/event/model/data";
 
 export default async function EventRoutePage() {
   const { events, error } = await getEvents();
-  const cards =
-    !error && events.length > 0 ? mapEventListToGridCards(events) : eventGridCards;
+  const cards = error ? eventGridCards : mapEventListToGridCards(events);
 
   return <EventPage cards={cards} listError={error} />;
 }

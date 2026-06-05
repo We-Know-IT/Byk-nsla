@@ -1,4 +1,4 @@
-# Bykänsla Backend
+# Linero Backend
 
 Simple TypeScript + Express backend with adapter-based integration boundaries.
 
