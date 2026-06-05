@@ -6,19 +6,44 @@ Bykänsla är en öppen kodbas för en **digital lokal plattform** för byar och
 
 - **Node.js** 20+ (LTS recommended)
 - **npm** (ships with Node)
-- **Docker** (for running the Postgres database)
+- **Docker** (optional: Postgres only, or the full stack via Compose)
 
-## Quick start
+## Docker quick start
+
+Run the database, API, and web app together from the **repository root**:
+
+```bash
+cp .env.docker.example .env
+docker compose up --build
+```
+
+| Service | URL |
+| --- | --- |
+| Web | [http://localhost:3000](http://localhost:3000) |
+| API | [http://localhost:4000](http://localhost:4000) |
+| Health | [http://localhost:4000/health](http://localhost:4000/health) |
+
+On first boot, the `migrate` service applies Prisma migrations before the backend starts.
+
+For **production deployment** (DigitalOcean Droplet, Managed PostgreSQL, HTTPS), see **[DEPLOY.md](DEPLOY.md)**.
+
+Postgres only while developing with `npm run dev`:
+
+```bash
+docker compose up db -d
+```
+
+## Quick start (local development)
 
 Run the API and the web app in **two terminals** from the repository root.
 
 ### 1. Database & Backend API
 
 ```bash
+docker compose up db -d
 cd backend
 cp .env.example .env
 npm install
-docker compose up -d
 npx prisma migrate dev
 npm run dev
 ```
@@ -42,8 +67,9 @@ The Next.js app proxies data through **App Router API routes** (`web/app/api/...
 
 | App | File | Purpose |
 | --- | --- | --- |
-| Backend | `backend/.env` | `PORT`, `WEATHER_PROVIDER` — see `backend/.env.example` and [backend/README.md](backend/README.md). |
+| Backend | `backend/.env` | `PORT`, `DATABASE_URL`, `WEATHER_PROVIDER` — see `backend/.env.example` and [backend/README.md](backend/README.md). |
 | Web | `web/.env` | `NEXT_PUBLIC_MAPBOX_TOKEN` for the map on the start page. Optional: `BACKEND_URL` (default `http://localhost:4000`), `APP_URL` (default `http://localhost:3000`) for server-side fetches to your own API routes. |
+| Docker Compose | `.env` (repo root) | All services — see [`.env.docker.example`](.env.docker.example). |
 
 Never commit real secrets; keep them in local `.env` files (they are gitignored where applicable).
 
@@ -53,6 +79,8 @@ Never commit real secrets; keep them in local `.env` files (they are gitignored 
 Bykänsla/
 ├── backend/          # Express API (adapters, modules, routes)
 ├── web/              # Next.js App Router UI + BFF-style API routes
+├── docker-compose.yml
+├── DEPLOY.md         # Production deployment (DigitalOcean guide)
 ├── temp-docs/        # Scratch / internal docs (optional)
 └── README.md         # This file
 ```
@@ -148,3 +176,5 @@ npm start
 ```
 
 Set `BACKEND_URL`, `APP_URL`, and any provider keys appropriately for your deployment environment.
+
+For Docker-based production (including DigitalOcean), use **[DEPLOY.md](DEPLOY.md)**.

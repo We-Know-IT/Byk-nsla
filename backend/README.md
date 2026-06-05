@@ -2,12 +2,16 @@
 
 Simple TypeScript + Express backend with adapter-based integration boundaries.
 
+For Docker (full stack or database only), see the [repository README](../README.md#docker-quick-start). For production on DigitalOcean, see **[DEPLOY.md](../DEPLOY.md)**.
+
 ## Run
 
-1. Copy `.env.example` to `.env`.
-2. Install dependencies:
+1. Start Postgres from the repo root: `docker compose up db -d` (or use the full stack).
+2. Copy `.env.example` to `.env`.
+3. Install dependencies:
    - `npm install`
-3. Start dev server:
+4. Apply migrations: `npx prisma migrate dev`
+5. Start dev server:
    - `npm run dev`
 
 Server default: `http://localhost:4000`
