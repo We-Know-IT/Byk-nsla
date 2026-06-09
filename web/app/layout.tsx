@@ -4,7 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { siteConfig, siteThemeCssVars } from "./shared/config/site.config";
 import "./globals.css";
 import { getEnabledModuleNavItems } from "./shared/config/modules";
-import SidebarNav from "./modules/shared/components/sidebar-nav";
+import { adminNavItems } from "./modules/admin/model/navigation";
+import AppShell from "./modules/shared/components/app-shell";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,10 +53,9 @@ export default async function RootLayout({
       style={siteThemeCssVars(theme) as CSSProperties}
     >
       <body className="m-0 min-h-full flex flex-row bg-surface font-sans text-foreground">
-        <SidebarNav items={navItems} />
-        <main className="flex-1 min-h-screen overflow-y-auto">
+        <AppShell publicNavItems={navItems} adminNavItems={adminNavItems}>
           {children}
-        </main>
+        </AppShell>
       </body>
     </html>
   );
