@@ -23,8 +23,8 @@ export default async function EventPage({ cards, listError }: EventPageProps) {
   return (
     <main className="min-h-screen bg-background">
 
-      <div className="flex md:min-h-[calc(100vh-66px)] flex-col md:flex-row">
-        <SidebarNav items={navItems} activeKey="pagang" />
+      <div className="-full p-6 md:p-10">
+        {/* <SidebarNav items={navItems} /> */}
 
         <section
           className="flex flex-1 flex-col gap-2.5 px-4 pb-8 pt-4"

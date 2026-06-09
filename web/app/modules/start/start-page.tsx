@@ -1,10 +1,8 @@
-import { getEnabledModuleNavItems } from "../../shared/config/modules";
 import { siteConfig } from "../../shared/config/site.config";
 import { getEvents } from "../event/event-api";
 import EventCard from "../event/components/event-card";
 import MapView from "./components/map-view";
 import SectionHeader from "../../shared/ui/section-header";
-import SidebarNav from "../shared/components/sidebar-nav";
 import SpotlightCard from "./components/spotlight-card";
 import { cityCards, sectionDescription, spotlightCards } from "./model/data";
 import Image from "next/image";
@@ -47,13 +45,9 @@ export default async function StartPage() {
       }))
       : cityCards;
 
-  const navItems = await getEnabledModuleNavItems();
-
   return (
     <main className="min-h-screen bg-background">
       <div className="flex min-h-[calc(100vh-66px)] flex-col md:flex-row">
-        <SidebarNav items={navItems} activeKey="start" />
-
         <section
           className="flex flex-1 flex-col gap-5.5 px-4 pb-8 pt-4"
           aria-label="Startsida"

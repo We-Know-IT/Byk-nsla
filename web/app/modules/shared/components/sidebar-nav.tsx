@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { cn } from "../../../shared/utils/cn";
 import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 export type SidebarNavItem = {
   key: string;
@@ -12,40 +13,64 @@ export type SidebarNavItem = {
 
 type SidebarNavProps = {
   items: readonly SidebarNavItem[];
-  activeKey: string;
   ariaLabel?: string;
 };
 
-export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavProps) {
-  const [onMobile, setOnMobile] = useState(false);
-
-  const [isOpen, setIsOpen] = useState<boolean>(() => {
-    if (typeof window === "undefined") return true;
-
-    const saved = localStorage.getItem("sidebar-open");
-    return saved ? JSON.parse(saved) : true;
-  });
+export default function SidebarNav({ items, ariaLabel }: SidebarNavProps) {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const sidebarRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    localStorage.setItem("sidebar-open", JSON.stringify(isOpen));
-  }, [isOpen]);
+    const isDesktop = window.innerWidth >= 768;
+
+    if (isDesktop) {
+      const saved = localStorage.getItem("sidebar-open");
+      setIsOpen(saved ? JSON.parse(saved) : true);
+    } else {
+      setIsOpen(false);
+    }
+
+    const timer = setTimeout(() => {
+      setIsMounted(true);
+    }, 25);
+  }, []);
+
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    if (window.innerWidth >= 768) {
+      localStorage.setItem("sidebar-open", JSON.stringify(isOpen));
+    }
+  }, [isOpen, isMounted]);
+
 
   useEffect(() => {
     const handleResize = () => {
-      setOnMobile(window.innerWidth < 768);
+      if (window.innerWidth < 768) {
+        setIsOpen(false);
+      }
     };
 
-    handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // useEffect(() => {
+  //   if (window.innerWidth < 768) {
+  //     setIsOpen(false);
+  //   }
+  // }, [pathname]);
+
   // Lock scroll when sidebar is open on mobile
   useEffect(() => {
-    if (onMobile && isOpen) {
+    if (!isMounted) return;
+
+    const isMobile = window.innerWidth < 768;
+    if (isMobile && isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -54,18 +79,14 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isOpen, onMobile]);
+  }, [isOpen, isMounted]);
 
   return (
     <>
-      {onMobile && (
-        <div className="h-14 w-full border-b border-border bg-surface md:hidden" />
-      )}
-
       {/* Backdrop for mobile menu, handling close when clicked */}
-      {onMobile && isOpen && (
+      {isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black/30"
+          className="fixed inset-0 z-30 bg-black/30 md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -75,14 +96,18 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
       <aside
         className={cn(
           // Mobile
-          "fixed inset-y-0 left-0 z-40 h-screen w-64 border-r border-border bg-surface p-4 transition-transform duration-300 ease-in-out",
+          "fixed inset-y-0 left-0 z-40 h-screen w-64 border-r border-border bg-surface p-4 ",
           isOpen ? "translate-x-0" : "-translate-x-full",
 
           // Desktop
-          "md:sticky md:top-0 md:h-screen md:translate-x-0 md:transition-all md:duration-200 md:overflow-x-hidden",
+          "md:sticky md:top-0 md:h-screen md:translate-x-0 md:overflow-x-hidden",
           isOpen
             ? "md:w-55 md:min-w-55 md:basis-55"
-            : "md:w-18 md:min-w-18 md:basis-18"
+            : "md:w-18 md:min-w-18 md:basis-18",
+
+          isMounted
+            ? "transition-transform duration-300 ease-in-out md:transition-all md:duration-200"
+            : "transition-none"
         )}
         aria-label={ariaLabel ?? "Vänstermeny"}
         ref={sidebarRef}
@@ -92,8 +117,8 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
           <div className="relative flex w-full flex-row items-center justify-between">
             <div
               className={cn(
-                "flex min-h-9.5 w-full shrink-0 items-center whitespace-nowrap rounded-full border border-border bg-surface text-sm leading-snug text-foreground no-underline transition-all duration-200",
-
+                "flex min-h-9.5 w-full shrink-0 items-center whitespace-nowrap rounded-full border border-border bg-surface text-sm leading-snug text-foreground no-underline",
+                isMounted && "transition-all duration-200", 
                 isOpen ? "px-4 py-2 md:px-3" : "px-2 py-2 md:px-[6px]"
               )}
             >
@@ -108,14 +133,16 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
                 aria-hidden
               />
               <span className={cn(
-                "text-center flex-1 transition-all duration-200 ease-in-out overflow-hidden",
+                "text-center flex-1  overflow-hidden",
+                isMounted && "transition-all duration-200 ease-in-out",
                 isOpen ? "max-w-40 opacity-100 mx-2" : "max-w-0 opacity-0 mx-0"
               )}>Förnamn</span>
               <img
                 src="/icons/nav-arrow-right.svg"
                 alt=""
                 className={cn(
-                  "size-3 shrink-0 object-contain transition-all duration-200 ease-in-out overflow-hidden",
+                  "size-3 shrink-0 object-contain overflow-hidden",
+                  isMounted && "transition-all duration-200 ease-in-out",
                   isOpen ? "max-w-4 opacity-100" : "max-w-0 opacity-0"
                 )}
                 width={12}
@@ -126,14 +153,15 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
           </div>
 
           {items.map((item) => {
-            const isActive = item.key === activeKey;
+            const isActive = pathname === item.href;
 
             return (
               <Link
                 key={item.key}
                 href={item.href}
                 className={cn(
-                  "flex min-h-9.5 w-auto shrink-0 items-center whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:py-2.5 transition-all duration-200",
+                  "flex min-h-9.5 w-auto shrink-0 items-center whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:py-2.5",
+                  isMounted && "transition-all duration-200",
                   isActive && "bg-brand-secondary text-background hover:bg-brand-secondary",
                   isOpen ? "md:px-3" : "md:px-[11px]"
                 )}
@@ -152,7 +180,8 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
                   />
                 ) : null}
                 <span className={cn(
-                  "text-left transition-all duration-200 ease-in-out overflow-hidden",
+                  "text-left overflow-hidden",
+                  isMounted && "transition-all duration-200 ease-in-out",
                   isOpen ? "max-w-40 opacity-100 ml-2" : "max-w-0 opacity-0 ml-0"
 
                 )}>{item.label}</span>
@@ -161,7 +190,8 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
                   src="/icons/nav-arrow-right.svg"
                   alt=""
                   className={cn(
-                    "size-3 shrink-0 object-contain transition-all duration-200 ease-in-out overflow-hidden",
+                    "size-3 shrink-0 object-contain overflow-hidden",
+                    isMounted && "transition-all duration-200 ease-in-out",
                     isOpen ? "max-w-4 opacity-100 ml-auto" : "max-w-0 opacity-0 ml-0"
                   )}
                   width={12}
@@ -175,7 +205,8 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
           <Link
             href={"/"}
             className={cn(
-              "mt-auto flex min-h-9.5 w-auto shrink-0 items-center whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:py-2.5 transition-all duration-200",
+              "mt-auto flex min-h-9.5 w-auto shrink-0 items-center whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:py-2.5",
+              isMounted && "transition-all duration-200",
               isOpen ? "md:px-3" : "md:px-[11px]"
             )}
           >
@@ -188,7 +219,8 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
               aria-hidden
             />
             <span className={cn(
-              "text-left transition-all duration-200 ease-in-out overflow-hidden",
+              "text-left overflow-hidden",
+              isMounted && "transition-all duration-200 ease-in-out",
               isOpen ? "max-w-40 opacity-100 ml-2" : "max-w-0 opacity-0 ml-0"
             )}>{"Hjälp"}</span>
             <img
@@ -209,12 +241,11 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
         className={cn(
           "cursor-pointer rounded-r-xl bg-surface shadow-sm shadow-black/30 flex items-center justify-center z-39",
           "h-16 w-8",
-          //Mobile
-          "fixed top-20 left-0 transition-transform duration-300 ease-in-out",
+          "fixed top-20 left-0",
+          isMounted && "transition-transform duration-300 ease-in-out",
 
           isOpen ? "translate-x-64 md:translate-none" : "translate-x-0",
 
-          //Desktop
           "md:static md:top-auto"
         )}
         onClick={() => setIsOpen((open) => !open)}
@@ -224,7 +255,10 @@ export default function SidebarNav({ items, activeKey, ariaLabel }: SidebarNavPr
         <img
           src={"/icons/nav-arrow-left.svg"}
           alt="MenuFold"
-          className={'w-6 h-6 object-fill transition-transform hover:scale-110 ' + (!isOpen ? "rotate-180" : "")}
+          className={cn(
+            "w-6 h-6 object-fill transition-transform hover:scale-110 ",
+            !isOpen && "rotate-180"
+          )}
         />
       </button>
     </>
