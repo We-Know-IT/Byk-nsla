@@ -1,6 +1,5 @@
 import { getEnabledModuleNavItems } from "../../shared/config/modules";
 import { siteConfig } from "../../shared/config/site.config";
-import SidebarNav from "../shared/components/sidebar-nav";
 import EventListingClient from "./components/event-listing-client";
 import type { EventGridCardData } from "./model/data";
 
@@ -23,9 +22,7 @@ export default async function EventPage({ cards, listError }: EventPageProps) {
   return (
     <main className="min-h-screen bg-background">
 
-      <div className="-full p-6 md:p-10">
-        {/* <SidebarNav items={navItems} /> */}
-
+      <div className="flex min-h-[calc(100vh-66px)] flex-col md:flex-row">
         <section
           className="flex flex-1 flex-col gap-2.5 px-4 pb-8 pt-4"
           aria-label="På gång i {siteConfig.areaName}"

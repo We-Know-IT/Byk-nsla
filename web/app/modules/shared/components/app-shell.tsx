@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import SidebarNav, { type SidebarNavItem } from "./sidebar-nav";
+import SidebarNav, { type SidebarNavItem } from "./sidebar/sidebar-nav";
 
 type AppShellProps = {
   publicNavItems: readonly SidebarNavItem[];

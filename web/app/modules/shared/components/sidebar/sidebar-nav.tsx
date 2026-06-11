@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-import { cn } from "../../../shared/utils/cn";
+import { cn } from "../../../../shared/utils/cn";
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import MyAccount from "./my-account";
 
 export type SidebarNavItem = {
   key: string;
@@ -114,44 +115,6 @@ export default function SidebarNav({ items, ariaLabel }: SidebarNavProps) {
       >
         <nav className="flex h-full flex-col gap-1.5 overflow-y-auto pb-0 md:gap-6">
 
-          <div className="relative flex w-full flex-row items-center justify-between">
-            <div
-              className={cn(
-                "flex min-h-9.5 w-full shrink-0 items-center whitespace-nowrap rounded-full border border-border bg-surface text-sm leading-snug text-foreground no-underline",
-                isMounted && "transition-all duration-200", 
-                isOpen ? "px-4 py-2 md:px-3" : "px-2 py-2 md:px-[6px]"
-              )}
-            >
-              <img
-                src="/icons/Frame.svg"
-                alt=""
-                className={cn(
-                  "rounded-full bg-brand-secondary object-contain p-1 shrink-0"
-                )}
-                width={28}
-                height={28}
-                aria-hidden
-              />
-              <span className={cn(
-                "text-center flex-1  overflow-hidden",
-                isMounted && "transition-all duration-200 ease-in-out",
-                isOpen ? "max-w-40 opacity-100 mx-2" : "max-w-0 opacity-0 mx-0"
-              )}>Förnamn</span>
-              <img
-                src="/icons/nav-arrow-right.svg"
-                alt=""
-                className={cn(
-                  "size-3 shrink-0 object-contain overflow-hidden",
-                  isMounted && "transition-all duration-200 ease-in-out",
-                  isOpen ? "max-w-4 opacity-100" : "max-w-0 opacity-0"
-                )}
-                width={12}
-                height={12}
-                aria-hidden
-              />
-            </div>
-          </div>
-
           {items.map((item) => {
             const isActive = pathname === item.href;
 
@@ -202,7 +165,16 @@ export default function SidebarNav({ items, ariaLabel }: SidebarNavProps) {
             );
           })}
 
-          <Link
+
+          <div className={cn(
+            "mt-auto",
+            isOpen ? "" : "hidden",
+
+            )}>
+            <MyAccount />
+          </div>
+
+          {/* <Link
             href={"/"}
             className={cn(
               "mt-auto flex min-h-9.5 w-auto shrink-0 items-center whitespace-nowrap rounded-full border-none bg-surface px-4 py-2 text-sm leading-snug text-foreground no-underline hover:bg-brand-third md:w-full md:shrink md:py-2.5",
@@ -234,8 +206,9 @@ export default function SidebarNav({ items, ariaLabel }: SidebarNavProps) {
               height={12}
               aria-hidden
             />
-          </Link>
+          </Link> */}
         </nav>
+
       </aside>
       <button
         className={cn(
