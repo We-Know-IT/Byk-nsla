@@ -4,6 +4,7 @@ import { cn } from "../../../../shared/utils/cn";
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import MyAccount from "./my-account";
+import SidebarLogo from "./sidebar-logo"; 
 
 export type SidebarNavItem = {
   key: string;
@@ -92,8 +93,6 @@ export default function SidebarNav({ items, ariaLabel }: SidebarNavProps) {
         />
       )}
 
-
-
       <aside
         className={cn(
           // Mobile
@@ -114,6 +113,8 @@ export default function SidebarNav({ items, ariaLabel }: SidebarNavProps) {
         ref={sidebarRef}
       >
         <nav className="flex h-full flex-col gap-1.5 overflow-y-auto pb-0 md:gap-6">
+
+          <SidebarLogo imageSrc="/example-images/Bykänsla_logo.png" width={88} height={88} />
 
           {items.map((item) => {
             const isActive = pathname === item.href;
