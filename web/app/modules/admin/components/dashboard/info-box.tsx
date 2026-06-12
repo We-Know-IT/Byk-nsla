@@ -30,7 +30,7 @@ export default function InfoBox({
             {data && data.length > 0 ? (
                 <div className="flex flex-col gap-2 my-2">
                     {data.map((item, index) => (
-                        <div key={index} className={`flex border-l-4 ${item.borderColor} flex-col py-2 px-4 items-start rounded-xl ${item.bgColor} gap-2`}>
+                        <div key={index} className={`flex border-l-4 ${item.borderColor} flex-col py-2 px-4 items-start rounded-xl ${item.bgColor} gap-2 shadow-sm`}>
                             <div className="">
                                 <p className="text-sm font-medium text-foreground">{item.label}</p>
                             </div>
