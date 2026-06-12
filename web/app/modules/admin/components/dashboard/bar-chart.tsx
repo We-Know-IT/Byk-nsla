@@ -18,7 +18,7 @@ export default function BarChart({
         <div className="flex flex-col h-64 w-full rounded-xl bg-surface p-4 border border-border shadow-md">
             <div className="flex flex-row items-center justify-between mb-4">
                 <div>
-                    <h2 className="text-lg font-bold text-foreground">{title || "Data"}</h2>
+                    <h2 className="text-md font-medium text-foreground">{title || "Data"}</h2>
                     {text && <p className="text-sm text-foreground-muted">{text}</p>}
                 </div>
 

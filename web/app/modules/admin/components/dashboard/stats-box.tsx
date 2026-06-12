@@ -22,18 +22,21 @@ export default function StatsBox({
     const handlePercentageChange = () => {
         const percentageChange = previousValue !== undefined ? ((Number(value) - Number(previousValue)) / Number(previousValue)) * 100 : 0;
         const isPositiveChange = percentageChange > 0;
-        const changeColor = isPositiveChange ? "green" : "red";
+        const changeTextColor = isPositiveChange ? "text-green-800" : "text-red-800";
+        const changeBgColor = isPositiveChange ? "bg-green-200" : "bg-red-200";
         const changeIcon = isPositiveChange ? "+" : "-";
 
         if (previousValue === undefined) return null;
-        return (<div className={`rounded-full text-${changeColor}-800 bg-${changeColor}-200 m-4 py-1 px-2 text-xs`}>
-            <p>{changeIcon} {Math.round(Math.abs(percentageChange))}%</p>
-        </div>);
+        return (
+            <div className={`rounded-full ${changeTextColor} ${changeBgColor} m-4 py-1 px-2 text-xs`}>
+                <p>{changeIcon} {Math.round(Math.abs(percentageChange))}%</p>
+            </div>
+        );
     };
 
 
     return (
-        <div className="relative rounded-xl border border-border bg-surface p-4 shadow-sm mb-4 w-full md:w-1/3">
+        <div className="relative rounded-xl border border-border bg-surface p-4 shadow-sm mb-4 w-full">
             <div className="bg-brand-foreground rounded-2xl p-2 mb-4 w-max">
                 {iconSrc && <img src={iconSrc} alt="" className="h-6 w-6" />}
             </div>
@@ -60,7 +63,7 @@ export default function StatsBox({
                         </p>
 
                     ) : (
-                        <p className = "text-xs text-foreground-muted mt-2 mb-1">
+                        <p className="text-xs text-foreground-muted mt-2 mb-1">
                             {Math.round(percentage)}% av målets {goal}
                         </p>
                     )}

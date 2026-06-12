@@ -3,6 +3,7 @@
 import { AdminSectionPage } from "../../modules/admin";
 import StatsBox from "../../modules/admin/components/dashboard/stats-box";
 import BarChart from "../../modules/admin/components/dashboard/bar-chart";
+import InfoBox from "../../modules/admin/components/dashboard/info-box";
 
 const mockData = [
     { label: 'Januari', value: 30 },
@@ -15,6 +16,15 @@ const mockData = [
     { label: 'Augusti', value: 25 },
 ];
 
+const mockInfoData = [
+    { label: 'Eventet loppmarknad har 50+ anmälda', text: 'Rekordhögt deltagande - 58 totalt', borderColor: 'border-green-800', bgColor: 'bg-green-100' },
+    { label: 'Rapport för maj är klar', text: 'Sista rapporten för maj är nu klar, väntas på att publiceras', borderColor: 'border-blue-800', bgColor: 'bg-blue-100' },
+    { label: 'Problem med inloggning', text: 'Flera användare har rapporterat problem med att logga in, undersöker problemet', borderColor: 'border-amber-800', bgColor: 'bg-amber-100' },
+    { label: 'Teater i folkparken - 1200+ intresserade', text: 'Rekordhögt intresserade för ett event - 1278 totalt', borderColor: 'border-green-800', bgColor: 'bg-green-100' },
+
+
+];
+
 export default function Page() {
   return (
     <AdminSectionPage>
@@ -25,9 +35,20 @@ export default function Page() {
         <StatsBox title="Kommande event" value={27} iconSrc="/icons/Calendar_detailed.svg" />
 
       </div>
-      <div className="mt-4">
+
+
+      <div className="grid md:grid-cols-10 md:gap-4">
+        <div className="md:col-span-7">
         <BarChart data={mockData} title="Nya användare per månad" text="Registreringar under 2026" dataTitle="Användare" />
+        </div>
+
+        <div className="md:col-span-3">
+        <InfoBox title="Notiser" text="" data={mockInfoData} showCounter={true} />
+        </div>
+
       </div>
+
+
     </AdminSectionPage>
   );
 }
