@@ -4,10 +4,14 @@ Simple TypeScript + Express backend with adapter-based integration boundaries.
 
 ## Run
 
-1. Copy `.env.example` to `.env`.
+1. Copy `.env.example` to `.env` (includes `DATABASE_URL` matching the Docker Postgres defaults).
 2. Install dependencies:
    - `npm install`
-3. Start dev server:
+3. Start the database (requires Docker):
+   - `docker compose up -d`
+4. Apply migrations:
+   - `npx prisma migrate dev`
+5. Start dev server:
    - `npm run dev`
 
 Server default: `http://localhost:4000`
@@ -17,6 +21,8 @@ Server default: `http://localhost:4000`
 - `GET /health`
 - `GET /api/events`
 - `GET /api/weather`
+- `/api/site-navigation` — read/update navigation configuration (Postgres)
+- `/api/site-themes` — read/update theme, page and background selection (Postgres)
 
 ## Adapter structure
 

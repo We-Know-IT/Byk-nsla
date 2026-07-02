@@ -42,8 +42,8 @@ The Next.js app proxies data through **App Router API routes** (`web/app/api/...
 
 | App | File | Purpose |
 | --- | --- | --- |
-| Backend | `backend/.env` | `PORT`, `WEATHER_PROVIDER` — see `backend/.env.example` and [backend/README.md](backend/README.md). |
-| Web | `web/.env` | `NEXT_PUBLIC_MAPBOX_TOKEN` for the map on the start page. Optional: `BACKEND_URL` (default `http://localhost:4000`), `APP_URL` (default `http://localhost:3000`) for server-side fetches to your own API routes. |
+| Backend | `backend/.env` | `DATABASE_URL` (Postgres connection used by Prisma; the default matches `docker-compose.yml`), `PORT`, `WEATHER_PROVIDER` — see `backend/.env.example` and [backend/README.md](backend/README.md). |
+| Web | `web/.env` | `NEXT_PUBLIC_MAPBOX_TOKEN` for the map on the start page, `NEXT_PUBLIC_API_URL` (default `http://localhost:4000/api`) for browser-side calls to the backend. Optional: `BACKEND_URL` (default `http://localhost:4000`) and `APP_URL` (default `http://localhost:3000`) for server-side fetches. |
 
 Never commit real secrets; keep them in local `.env` files (they are gitignored where applicable).
 
@@ -51,9 +51,8 @@ Never commit real secrets; keep them in local `.env` files (they are gitignored 
 
 ```text
 Bykänsla/
-├── backend/          # Express API (adapters, modules, routes)
+├── backend/          # Express API (adapters, modules, routes) + Prisma/Postgres
 ├── web/              # Next.js App Router UI + BFF-style API routes
-├── temp-docs/        # Scratch / internal docs (optional)
 └── README.md         # This file
 ```
 
@@ -80,8 +79,10 @@ TypeScript **Express** server with an **adapter** pattern: domain modules depend
 - `GET /health`
 - `GET /api/events`
 - `GET /api/weather`
+- `/api/site-navigation` — read/update navigation configuration (backed by Postgres)
+- `/api/site-themes` — read/update theme, page and background selection (backed by Postgres)
 
-Events use a mock provider out of the box; weather uses a mock provider. See [backend/README.md](backend/README.md) for how to add real integrations.
+Events and weather use mock providers out of the box. Site navigation and theme data are persisted in Postgres via Prisma and power the admin panel. See [backend/README.md](backend/README.md) for how to add real integrations.
 
 ### Forking and adding a backend feature
 
@@ -109,7 +110,8 @@ This will also automatically run `npx prisma generate` to update the generated P
 | --- | --- |
 | `app/page.tsx` | Home / start route |
 | `app/layout.tsx` | Root layout |
-| `app/*/page.tsx` | Top-level routes (e.g. `event`, `utforska`, `trafik`, `vader`) |
+| `app/*/page.tsx` | Top-level routes (e.g. `event`, `utforska`, `trafik`, `vader`, `bygg`, `hjalptill`) |
+| `app/admin/` | Admin panel (dashboard, settings, notifications, statistics) |
 | `app/api/` | Next.js route handlers that forward to the backend |
 | `app/modules/` | Feature UI and data hooks per module |
 | `app/shared/` | Shared UI, `site.config.ts`, module nav config |
@@ -128,6 +130,10 @@ All primary project updates and customizations should be done directly in **`web
 - **Geography Settings**: Target area boundaries, map center coordinates, and filtering keywords.
 
 Navigation modules can be ordered and toggled in `web/app/shared/config/modules.ts`.
+
+### Admin panel
+
+In addition to the static config above, the app ships an **admin panel** at `/admin` (dashboard, settings, notifications, statistics). It lets you configure theme, navigation, active pages and start-page background at runtime. These selections are stored in Postgres via the backend (`/api/site-themes`, `/api/site-navigation`) and read by the web app on load, so changes persist without editing `site.config.ts`. The backend must be running with the database migrated for the admin panel to work.
 
 ## Production builds
 
